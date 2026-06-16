@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 265 206" fill="none">
+  <defs>
+    <linearGradient id="torusGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#8c45ff"/>
+      <stop offset="100%" stop-color="#361764"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="132" cy="120" rx="90" ry="28" stroke="url(#torusGrad)" stroke-width="3" fill="none" opacity="0.9" filter="url(#glow)"/>
+  <ellipse cx="132" cy="100" rx="90" ry="28" stroke="#b372cf" stroke-width="2" fill="none" opacity="0.6"/>
+  <ellipse cx="132" cy="80" rx="70" ry="22" stroke="#8c45ff" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <circle cx="132" cy="55" r="18" fill="url(#torusGrad)" opacity="0.8"/>
+  <path d="M132 37 L132 20 M118 55 L105 55 M146 55 L159 55" stroke="#9855ff" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+</svg>

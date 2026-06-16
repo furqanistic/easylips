@@ -1,0 +1,199 @@
+/* ── Microphone step layout ── */
+.main.main--microphone {
+  overflow: hidden;
+  padding-bottom: 40px;
+}
+
+.main.main--microphone #view-mount {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.main.main--microphone .view {
+  flex: 1;
+  min-height: 0;
+}
+
+.main.main--microphone .stepper {
+  margin-bottom: 20px;
+}
+
+.content--microphone {
+  max-width: 880px;
+  text-align: center;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content--microphone .step-tag {
+  margin-bottom: 10px;
+}
+
+.content--microphone .heading {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.content--microphone .subheading {
+  margin-bottom: 18px;
+  max-width: 520px;
+}
+
+.microphone-panels {
+  flex-shrink: 0;
+}
+
+/* ── Device picker overrides ── */
+.language-picker.device-picker {
+  min-height: 0;
+  height: auto;
+}
+
+.device-picker-panel {
+  flex: 0 1 auto;
+  padding-bottom: 10px;
+}
+
+.device-picker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 0;
+  max-height: 108px;
+  flex: 0 1 auto;
+  overflow-y: auto;
+}
+
+.device-option .language-option-leading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.device-option .language-option-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.device-option.language-option--selected .language-option-leading,
+.device-option.language-option--selected .language-option-label {
+  color: var(--red-600);
+}
+
+/* ── Input level meter ── */
+.device-picker-footer {
+  margin: auto 16px 16px;
+  padding: 12px 14px;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.device-picker-footer--level {
+  margin-top: 8px;
+}
+
+.level-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.level-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.level-status {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.level-status--good {
+  color: #22c55e;
+}
+
+.level-status--low {
+  color: var(--muted);
+}
+
+.level-status--loud {
+  color: #f59e0b;
+}
+
+.level-status--denied {
+  color: #ef4444;
+}
+
+.level-meter {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3px;
+  height: 22px;
+}
+
+.level-bar {
+  flex: 1;
+  min-width: 0;
+  height: 6px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: height 0.08s ease, background-color 0.08s ease;
+}
+
+.level-bar--active {
+  height: 18px;
+  background: var(--red-600);
+}
+
+/* ── Output status ── */
+.device-picker-footer--status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.device-picker-footer--idle .status-dot {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.device-picker-footer--denied .status-dot {
+  background: #ef4444;
+}
+
+.status-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.device-picker-footer--idle .status-text {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.device-picker-footer--denied .status-text {
+  color: #ef4444;
+}
+
+@media (max-width: 860px) {
+  .microphone-panels {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}

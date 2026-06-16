@@ -1,0 +1,42 @@
+{
+  "name": "easylips-app",
+  "private": true,
+  "version": "0.1.0",
+  "description": "EasyLips desktop shell",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "nodemon",
+    "start:once": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^35.1.2",
+    "electron-builder": "^26.0.12",
+    "nodemon": "^3.1.14"
+  },
+  "build": {
+    "appId": "com.easylips.app",
+    "productName": "EasyLips",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "index.html",
+      "css/**/*",
+      "js/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}

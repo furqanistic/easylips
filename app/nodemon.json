@@ -1,0 +1,16 @@
+{
+  "watch": [
+    "main.cjs",
+    "preload.cjs",
+    "index.html",
+    "css",
+    "js",
+    "assets"
+  ],
+  "ext": "html,css,js,cjs,png,svg,jpg,jpeg,webp,json",
+  "ignore": ["node_modules/**", "release/**"],
+  "exec": "electron .",
+  "delay": 400,
+  "legacyWatch": true,
+  "signal": "SIGTERM"
+}

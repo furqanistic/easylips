@@ -1,0 +1,18 @@
+:root {
+  --red-600: #dc2626;
+  --red-700: #b91c1c;
+  --bg: #000000;
+  --white: #ffffff;
+  --muted: #737373;
+  --subtle: #525252;
+  --placeholder: #525252;
+  --card-bg: #0a0a0a;
+  --input-bg: #0a0a0a;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --btn-border: rgba(255, 255, 255, 0.12);
+  --input-border: rgba(255, 255, 255, 0.12);
+  --step-inactive: #1a1a1a;
+  --step-line: rgba(255, 255, 255, 0.12);
+  --footer-border: rgba(255, 255, 255, 0.08);
+  --icon-muted: rgba(255, 255, 255, 0.45);
+}

@@ -1,0 +1,223 @@
+/* ── Verify email layout ── */
+.content--verify {
+  max-width: 440px;
+}
+
+.verify-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.verify-card > *:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Email recipient row ── */
+.email-recipient-row {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+}
+
+.email-recipient-leading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red-600);
+}
+
+.email-recipient-leading .email-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.email-recipient-address {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Inline links ── */
+.inline-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  cursor: pointer;
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.inline-link--accent {
+  color: var(--red-600);
+}
+
+.inline-link--accent:hover {
+  color: #ef4444;
+}
+
+.inline-link--muted {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.inline-link--muted:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.inline-link--underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.inline-link--magic {
+  display: block;
+  width: 100%;
+  padding: 18px 20px 20px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.inline-link--magic:hover {
+  color: var(--white);
+}
+
+.form-forgot-link {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 0 2px 4px;
+  text-align: right;
+  font-size: 13px;
+}
+
+/* ── OTP input ── */
+.otp-input {
+  border: none;
+  margin: 0;
+  padding: 22px 20px;
+  min-inline-size: 0;
+}
+
+.otp-input-group {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.otp-digit {
+  width: 100%;
+  height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: #0a0a0a;
+  color: var(--white);
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  caret-color: var(--white);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.otp-digit::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.otp-digit:not(.otp-digit--filled):not(:focus) {
+  color: transparent;
+}
+
+.otp-digit:not(.otp-digit--filled):not(:focus) {
+  background-image: linear-gradient(
+    90deg,
+    transparent calc(50% - 8px),
+    rgba(255, 255, 255, 0.28) calc(50% - 8px),
+    rgba(255, 255, 255, 0.28) calc(50% + 8px),
+    transparent calc(50% + 8px)
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 2px;
+}
+
+.otp-digit--active,
+.otp-digit:focus {
+  border-color: rgba(255, 255, 255, 0.28);
+  background-color: #0c0c0c;
+}
+
+.otp-digit--filled {
+  border-color: rgba(255, 255, 255, 0.18);
+  background-color: #0a0a0a;
+  background-image: none;
+}
+
+/* ── Resend row ── */
+.resend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+}
+
+.resend-copy {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+  text-align: left;
+}
+
+.resend-link {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--red-600);
+  cursor: pointer;
+}
+
+.resend-link:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.resend-link--disabled,
+.resend-link:disabled {
+  color: rgba(220, 38, 38, 0.45);
+  cursor: default;
+  text-decoration: none;
+}
+
+.resend-timer {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  font-variant-numeric: tabular-nums;
+  min-width: 44px;
+  text-align: right;
+}
+
+.content--verify .back-link {
+  margin-top: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .otp-digit {
+    transition: none;
+    transform: none;
+  }
+}

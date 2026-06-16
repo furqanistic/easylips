@@ -1,0 +1,18 @@
+export const KIT_ASSETS = {
+  caretDown: '/landing/caret-down.svg',
+  logo: '/landing/logo.svg',
+  patternGrid: '/landing/pattern-grid.svg',
+  dividerLine: '/landing/divider-line.png',
+  check: '/landing/check.svg',
+  pricingPatternMask: '/landing/pricing-pattern-mask.png',
+  avatar: '/landing/avatar.svg',
+  gridLineV: '/landing/grid-line-v.svg',
+  gridLineH: '/landing/grid-line-h.svg',
+  logokit: '/landing/logokit.svg',
+  avatarGlow: '/landing/avatar-glow.png',
+  ctaPatternMask: '/landing/cta-pattern-mask.png',
+  ctaGlow: '/landing/cta-glow.png',
+  socialX: '/landing/social-x.svg',
+  socialInstagram: '/landing/social-instagram.svg',
+  socialYoutube: '/landing/social-youtube.svg',
+} as const

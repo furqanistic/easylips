@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 815" fill="none">
+  <rect width="1120" height="815" fill="#0a0514"/>
+  <rect x="0" y="0" width="1120" height="48" fill="#0d0718" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="24" cy="24" r="6" fill="#ff5f57" opacity="0.8"/>
+  <circle cx="44" cy="24" r="6" fill="#febc2e" opacity="0.8"/>
+  <circle cx="64" cy="24" r="6" fill="#28c840" opacity="0.8"/>
+  <rect x="200" y="0" width="220" height="48" fill="rgba(140,69,255,0.08)"/>
+  <rect x="220" y="16" width="180" height="16" rx="4" fill="rgba(255,255,255,0.1)"/>
+  <!-- Sidebar -->
+  <rect x="0" y="48" width="200" height="767" fill="#0d0718"/>
+  <rect x="20" y="72" width="120" height="14" rx="4" fill="rgba(140,69,255,0.5)"/>
+  <rect x="20" y="110" width="160" height="8" rx="3" fill="rgba(255,255,255,0.12)"/>
+  <rect x="20" y="130" width="140" height="8" rx="3" fill="rgba(255,255,255,0.06)"/>
+  <rect x="20" y="150" width="150" height="8" rx="3" fill="rgba(255,255,255,0.06)"/>
+  <rect x="20" y="170" width="130" height="8" rx="3" fill="rgba(255,255,255,0.06)"/>
+  <!-- Main content -->
+  <rect x="220" y="72" width="300" height="20" rx="5" fill="rgba(255,255,255,0.15)"/>
+  <rect x="220" y="110" width="240" height="100" rx="10" fill="rgba(140,69,255,0.12)" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="230" y="125" width="100" height="12" rx="3" fill="rgba(255,255,255,0.2)"/>
+  <rect x="230" y="150" width="70" height="28" rx="5" fill="#8c45ff" opacity="0.6"/>
+  <rect x="480" y="110" width="240" height="100" rx="10" fill="rgba(140,69,255,0.12)" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="490" y="125" width="100" height="12" rx="3" fill="rgba(255,255,255,0.2)"/>
+  <rect x="490" y="150" width="70" height="28" rx="5" fill="#b372cf" opacity="0.6"/>
+  <rect x="740" y="110" width="240" height="100" rx="10" fill="rgba(140,69,255,0.12)" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="750" y="125" width="100" height="12" rx="3" fill="rgba(255,255,255,0.2)"/>
+  <rect x="750" y="150" width="70" height="28" rx="5" fill="#9855ff" opacity="0.6"/>
+  <!-- Chart -->
+  <rect x="220" y="230" width="860" height="280" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+  <polyline points="240,480 320,420 400,380 480,350 560,300 640,260 720,220 800,180 880,150 1060,100" stroke="#8c45ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <polyline points="240,480 320,420 400,380 480,350 560,300 640,260 720,220 800,180 880,150 1060,100 1060,480 240,480" fill="url(#heroChart)" opacity="0.2"/>
+  <defs>
+    <linearGradient id="heroChart" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8c45ff"/>
+      <stop offset="100%" stop-color="#8c45ff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- Table -->
+  <rect x="220" y="530" width="860" height="200" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="240" y="555" width="820" height="10" rx="3" fill="rgba(255,255,255,0.1)"/>
+  <rect x="240" y="585" width="780" height="7" rx="2" fill="rgba(255,255,255,0.06)"/>
+  <rect x="240" y="610" width="800" height="7" rx="2" fill="rgba(255,255,255,0.06)"/>
+  <rect x="240" y="635" width="760" height="7" rx="2" fill="rgba(255,255,255,0.06)"/>
+  <rect x="240" y="660" width="790" height="7" rx="2" fill="rgba(255,255,255,0.06)"/>
+  <rect x="240" y="685" width="740" height="7" rx="2" fill="rgba(255,255,255,0.06)"/>
+</svg>

@@ -1,0 +1,182 @@
+/* ── Ready step layout ── */
+.main.main--ready {
+  overflow: hidden;
+  padding-bottom: 40px;
+}
+
+.main.main--ready #view-mount {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.main.main--ready .view {
+  flex: 1;
+  min-height: 0;
+}
+
+.main.main--ready .stepper {
+  margin-bottom: 20px;
+}
+
+.content--ready {
+  max-width: 520px;
+  text-align: center;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content--ready .step-tag {
+  margin-bottom: 10px;
+}
+
+.content--ready .heading {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.content--ready .subheading {
+  margin-bottom: 22px;
+  max-width: 420px;
+}
+
+/* ── Summary card ── */
+.setup-summary-card {
+  width: 100%;
+  background: rgba(8, 8, 8, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.setup-summary-row {
+  display: grid;
+  grid-template-columns: 20px 1fr auto 18px;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 18px;
+}
+
+.setup-summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red-600);
+}
+
+.setup-summary-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.setup-summary-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.setup-summary-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.setup-summary-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setup-summary-check svg {
+  width: 16px;
+  height: 16px;
+}
+
+.setup-summary-divider {
+  height: 1px;
+  margin: 0 18px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Tip ── */
+.setup-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  margin: 16px 0 0;
+  padding: 0 4px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  text-align: left;
+}
+
+.setup-tip svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.setup-tip strong {
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 600;
+}
+
+/* ── Prompt modal ── */
+.app-prompt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.app-prompt {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.app-prompt-title {
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.app-prompt-message {
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.app-prompt-confirm {
+  width: 100%;
+  margin-top: 0;
+}
+
+.app-prompt-confirm svg {
+  display: none;
+}
