@@ -592,6 +592,49 @@
   line-height: 1.45;
 }
 
+.toast-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.toast-action {
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  transition: opacity 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.toast-action--primary {
+  background: var(--red-600);
+  border-color: var(--red-600);
+}
+
+.toast-action--primary:hover {
+  background: var(--red-700);
+  border-color: var(--red-700);
+}
+
+.toast-action--secondary {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.toast-action--secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.toast-action:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
 .toast-close {
   width: 24px;
   height: 24px;

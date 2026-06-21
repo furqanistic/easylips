@@ -15,14 +15,28 @@ const http = require("node:http");
 const path = require("node:path");
 const crypto = require("node:crypto");
 
+let autoUpdater = null;
+try {
+  ({ autoUpdater } = require("electron-updater"));
+} catch {
+  // Update checks are optional in development and unavailable until dependencies are installed.
+}
+
 let mainWindow = null;
 let tray = null;
 let isQuitting = false;
 const TOGGLE_TRANSLATION_SHORTCUT = "CommandOrControl+Alt+T";
+const UPDATE_CHECK_DELAY_MS = 8000;
 const DEFAULT_WINDOW_WIDTH = 1280;
 const DEFAULT_WINDOW_HEIGHT = 800;
 const MIN_WINDOW_WIDTH = 960;
 const MIN_WINDOW_HEIGHT = 640;
+const updateState = {
+  checking: false,
+  available: false,
+  downloaded: false,
+  version: "",
+};
 const trayState = {
   speakLanguage: "Urdu",
   translateLanguage: "",
@@ -422,6 +436,154 @@ async function readWebSocketJson(data) {
 
 function broadcastLiveEvent(type, payload = {}) {
   mainWindow?.webContents?.send("gemini-live-event", { type, ...payload });
+}
+
+function broadcastUpdateEvent(type, payload = {}) {
+  const event = {
+    type,
+    version: updateState.version,
+    ...payload,
+  };
+
+  if (mainWindow?.webContents && !mainWindow.webContents.isDestroyed()) {
+    mainWindow.webContents.send("update-event", event);
+  }
+}
+
+function configureAutoUpdates() {
+  if (!autoUpdater) {
+    return;
+  }
+
+  autoUpdater.autoDownload = false;
+  autoUpdater.autoInstallOnAppQuit = true;
+
+  const explicitFeedUrl =
+    process.env.EASYLIPS_UPDATE_URL ||
+    process.env.UPDATE_FEED_URL ||
+    "";
+
+  if (explicitFeedUrl) {
+    autoUpdater.setFeedURL({
+      provider: "generic",
+      url: explicitFeedUrl,
+    });
+  }
+
+  autoUpdater.on("checking-for-update", () => {
+    updateState.checking = true;
+    broadcastUpdateEvent("checking");
+  });
+
+  autoUpdater.on("update-available", (info = {}) => {
+    updateState.checking = false;
+    updateState.available = true;
+    updateState.downloaded = false;
+    updateState.version = info.version || "";
+    broadcastUpdateEvent("available", {
+      releaseName: info.releaseName || "",
+      releaseDate: info.releaseDate || "",
+    });
+  });
+
+  autoUpdater.on("update-not-available", () => {
+    updateState.checking = false;
+    updateState.available = false;
+    updateState.downloaded = false;
+    broadcastUpdateEvent("not-available");
+  });
+
+  autoUpdater.on("download-progress", (progress = {}) => {
+    broadcastUpdateEvent("downloading", {
+      percent: Math.round(progress.percent || 0),
+    });
+  });
+
+  autoUpdater.on("update-downloaded", (info = {}) => {
+    updateState.checking = false;
+    updateState.available = true;
+    updateState.downloaded = true;
+    updateState.version = info.version || updateState.version;
+    broadcastUpdateEvent("downloaded");
+  });
+
+  autoUpdater.on("error", (error) => {
+    updateState.checking = false;
+    broadcastUpdateEvent("error", {
+      message: error?.message || "Could not check for updates.",
+    });
+  });
+}
+
+function shouldCheckForUpdates() {
+  return app.isPackaged || process.env.EASYLIPS_ENABLE_UPDATE_CHECKS === "1";
+}
+
+async function checkForUpdates({ manual = false } = {}) {
+  if (!autoUpdater) {
+    const result = {
+      ok: false,
+      code: "updater_unavailable",
+      message: "The update service is not available in this build.",
+    };
+    if (manual) broadcastUpdateEvent("error", result);
+    return result;
+  }
+
+  if (!shouldCheckForUpdates()) {
+    const result = {
+      ok: false,
+      code: "updates_disabled",
+      message: "Update checks run only in packaged builds.",
+    };
+    if (manual) broadcastUpdateEvent("error", result);
+    return result;
+  }
+
+  try {
+    await autoUpdater.checkForUpdates();
+    return { ok: true };
+  } catch (error) {
+    const result = {
+      ok: false,
+      code: "check_failed",
+      message: error?.message || "Could not check for updates.",
+    };
+    if (manual) broadcastUpdateEvent("error", result);
+    return result;
+  }
+}
+
+async function downloadUpdate() {
+  if (!autoUpdater || !updateState.available) {
+    return {
+      ok: false,
+      message: "No update is available to download.",
+    };
+  }
+
+  try {
+    await autoUpdater.downloadUpdate();
+    return { ok: true };
+  } catch (error) {
+    return {
+      ok: false,
+      message: error?.message || "Could not download the update.",
+    };
+  }
+}
+
+function installDownloadedUpdate() {
+  if (!autoUpdater || !updateState.downloaded) {
+    return {
+      ok: false,
+      message: "No downloaded update is ready to install.",
+    };
+  }
+
+  isQuitting = true;
+  autoUpdater.quitAndInstall(false, true);
+  return { ok: true };
 }
 
 const activeSessions = new Map();
@@ -920,6 +1082,18 @@ ipcMain.handle("gemini-live-send-audio", (_event, payload = {}) => {
   return sendGeminiLiveAudio(payload.sessionId, payload.audio);
 });
 
+ipcMain.handle("updates-check", () => {
+  return checkForUpdates({ manual: true });
+});
+
+ipcMain.handle("updates-download", () => {
+  return downloadUpdate();
+});
+
+ipcMain.handle("updates-install", () => {
+  return installDownloadedUpdate();
+});
+
 app.on("before-quit", () => {
   isQuitting = true;
   globalShortcut.unregisterAll();
@@ -947,11 +1121,20 @@ app.whenReady().then(() => {
   });
 
   ensureTray();
+  configureAutoUpdates();
   globalShortcut.register(TOGGLE_TRANSLATION_SHORTCUT, () => {
     sendTrayCommand({ type: "toggle-translation" });
   });
 
   createWindow();
+
+  if (shouldCheckForUpdates()) {
+    setTimeout(() => {
+      checkForUpdates().catch(() => {
+        // Update errors are reported through the updater event stream.
+      });
+    }, UPDATE_CHECK_DELAY_MS);
+  }
 });
 
 app.on("window-all-closed", () => {

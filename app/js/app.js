@@ -667,6 +667,58 @@
     });
     syncTrayControls();
 
+    let updateDownloadToastShown = false;
+    window.electronAPI?.onUpdateEvent?.((event = {}) => {
+      if (event.type === "available") {
+        updateDownloadToastShown = false;
+        App.toast?.({
+          title: "Update available",
+          message: event.version
+            ? `EasyLips ${event.version} is ready to download.`
+            : "A new EasyLips update is ready to download.",
+          type: "info",
+          actions: [
+            {
+              label: "Download update",
+              onClick: () => {
+                App.toast?.({
+                  title: "Downloading update",
+                  message: "EasyLips will let you know when it is ready to install.",
+                  type: "info",
+                });
+                return window.electronAPI?.downloadUpdate?.();
+              },
+            },
+          ],
+        });
+        return;
+      }
+
+      if (event.type === "downloading" && !updateDownloadToastShown) {
+        updateDownloadToastShown = true;
+        App.toast?.({
+          title: "Downloading update",
+          message: "You can keep using EasyLips while the update downloads.",
+          type: "info",
+        });
+        return;
+      }
+
+      if (event.type === "downloaded") {
+        App.toast?.({
+          title: "Update ready",
+          message: "Restart EasyLips to install the latest version.",
+          type: "success",
+          actions: [
+            {
+              label: "Restart now",
+              onClick: () => window.electronAPI?.installUpdate?.(),
+            },
+          ],
+        });
+      }
+    });
+
     const views = {
       [VIEWS.ACCOUNT_OPTIONS]: App.createAccountOptionsView({
         onEmailClick: () => showView(VIEWS.EMAIL_FORM),

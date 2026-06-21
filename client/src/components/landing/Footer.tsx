@@ -29,19 +29,12 @@ export function Footer() {
                   justifyContent: 'center',
                   width: '32px',
                   height: '32px',
-                  borderRadius: '10px',
-                  background: 'linear-gradient(135deg, oklch(0.55 0.22 25), oklch(0.6 0.2 20))',
-                  boxShadow: '0 0 16px oklch(0.55 0.22 25 / 0.25)',
                 }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M12 3L15 6M12 3L9 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="12" cy="12" r="3" fill="white" />
-                </svg>
+                <img src="/logo.png" alt="Easy Lips" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </span>
               <span style={{ color: '#ffffff', fontWeight: 600, fontSize: '15px', letterSpacing: '-0.03em' }}>
-                BetterLips
+                Easy Lips
               </span>
             </div>
             <p style={{ fontSize: '13px', lineHeight: 1.6, color: '#454647', maxWidth: '200px', marginBottom: '20px' }}>
@@ -90,7 +83,7 @@ export function Footer() {
           }}
         >
           <span style={{ fontSize: '12px', color: '#363739' }}>
-            © 2026 BetterLips, Inc. All rights reserved.
+            © 2026 Easy Lips, Inc. All rights reserved.
           </span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '11px', color: '#363739', letterSpacing: '0.04em' }}>

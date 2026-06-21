@@ -18,6 +18,8 @@ window.EasyLips = window.EasyLips || {};
     title,
     message = "",
     type = "info",
+    actions = [],
+    duration,
   }) {
     const root = ensureViewport();
     const item = document.createElement("div");
@@ -39,21 +41,52 @@ window.EasyLips = window.EasyLips || {};
       body.appendChild(copy);
     }
 
+    const dismiss = () => {
+      item.classList.add("toast--leaving");
+      window.setTimeout(() => item.remove(), 160);
+    };
+
+    if (actions.length) {
+      const actionRow = document.createElement("div");
+      actionRow.className = "toast-actions";
+
+      actions.forEach((action) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `toast-action toast-action--${action.variant || "primary"}`;
+        button.textContent = action.label;
+        button.addEventListener("click", async () => {
+          button.disabled = true;
+          try {
+            await action.onClick?.();
+            if (action.dismiss !== false) {
+              dismiss();
+            } else {
+              button.disabled = false;
+            }
+          } catch {
+            button.disabled = false;
+          }
+        });
+        actionRow.appendChild(button);
+      });
+
+      body.appendChild(actionRow);
+    }
+
     const close = document.createElement("button");
     close.type = "button";
     close.className = "toast-close";
     close.setAttribute("aria-label", "Dismiss notification");
     close.textContent = "x";
 
-    const dismiss = () => {
-      item.classList.add("toast--leaving");
-      window.setTimeout(() => item.remove(), 160);
-    };
-
     close.addEventListener("click", dismiss);
     item.append(body, close);
     root.appendChild(item);
 
-    window.setTimeout(dismiss, TOAST_TIMEOUT);
+    const timeout = duration ?? (actions.length ? 0 : TOAST_TIMEOUT);
+    if (timeout > 0) {
+      window.setTimeout(dismiss, timeout);
+    }
   };
 })(window.EasyLips);

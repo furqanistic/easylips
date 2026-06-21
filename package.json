@@ -1,0 +1,16 @@
+{
+  "name": "easylips-workspace",
+  "private": true,
+  "version": "0.1.0",
+  "description": "EasyLips build workspace",
+  "scripts": {
+    "dist": "node scripts/build-desktop.cjs",
+    "win": "node scripts/build-desktop.cjs win",
+    "mac": "node scripts/build-desktop.cjs mac",
+    "dist:win": "node scripts/build-desktop.cjs win",
+    "dist:mac": "node scripts/build-desktop.cjs mac"
+  },
+  "engines": {
+    "node": ">=20.18"
+  }
+}

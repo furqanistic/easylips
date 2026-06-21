@@ -1,12 +1,17 @@
-import { Navbar, Hero, TalkSection, CtaSection } from '@/components/landing'
+import { Navbar, Hero, Features, HowItWorks, Languages, Testimonials, CtaSection, Footer } from '@/components/landing'
 
 export function LandingPage() {
   return (
-    <main className="dark">
+    <main className="dark relative">
+      <div className="grain-overlay" aria-hidden />
       <Navbar />
       <Hero />
-      <TalkSection />
+      <Features />
+      <HowItWorks />
+      <Languages />
+      <Testimonials />
       <CtaSection />
+      <Footer />
     </main>
   )
 }

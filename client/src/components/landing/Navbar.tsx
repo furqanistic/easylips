@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+const RED_BRIGHT = '#ff1f2e'
+
 const navLinks = [
-  { label: 'Product', href: '#product' },
-  { label: 'Use Cases', href: '#use-cases' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Resources', href: '#resources' },
+  { label: 'Product', href: '#capabilities' },
+  { label: 'How it works', href: '#capabilities' },
+  { label: 'Pricing', href: '#get-started' },
 ]
 
 export function Navbar() {
@@ -26,31 +27,46 @@ export function Navbar() {
           style={{
             borderRadius: '999px',
             transition: 'all 0.5s cubic-bezier(0.32,0.72,0,1)',
-            background: scrolled ? 'rgba(1, 1, 4, 0.96)' : 'rgba(1, 1, 4, 0.78)',
+            background: scrolled ? 'rgba(3, 3, 8, 0.92)' : 'rgba(3, 3, 8, 0.55)',
             border: '1px solid rgba(234, 10, 26, 0.14)',
             boxShadow: scrolled
-              ? '0 8px 40px rgba(234, 10, 26, 0.10), inset 0 1px 0 rgba(255,255,255,0.04)'
+              ? '0 8px 40px rgba(234, 10, 26, 0.10), inset 0 1px 0 rgba(255,255,255,0.05)'
               : 'inset 0 1px 0 rgba(255,255,255,0.03)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
           }}
         >
           <a href="/" className="flex items-center gap-2.5 shrink-0 no-underline">
-            <span
-              className="flex items-center justify-center"
-              style={{
-                width: '34px',
-                height: '34px',
-                borderRadius: '11px',
-                background: 'linear-gradient(135deg, #ea0a1a 0%, #ff1f2e 100%)',
-                boxShadow: '0 0 22px rgba(234, 10, 26, 0.45)',
-              }}
-            >
-              <WaveformLogo />
+            <span className="flex items-center justify-center" style={{ width: '34px', height: '34px' }}>
+              <img src="/logo.png" alt="Easy Lips" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </span>
             <span
               className="text-white font-semibold tracking-tight"
               style={{ fontSize: '16px', letterSpacing: '-0.02em' }}
             >
               Easy Lips
+            </span>
+            <span
+              className="hidden sm:flex items-center"
+              style={{
+                gap: 5,
+                marginLeft: 4,
+                padding: '3px 8px',
+                borderRadius: '999px',
+                background: 'rgba(234,10,26,0.08)',
+                border: '1px solid rgba(234,10,26,0.18)',
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: '9.5px',
+                fontWeight: 500,
+                color: RED_BRIGHT,
+                letterSpacing: '0.08em',
+              }}
+            >
+              <span
+                className="animate-pulse-glow rounded-full"
+                style={{ width: 5, height: 5, background: RED_BRIGHT, boxShadow: `0 0 6px ${RED_BRIGHT}` }}
+              />
+              LIVE
             </span>
           </a>
 
@@ -100,7 +116,7 @@ export function Navbar() {
         style={{
           backdropFilter: menuOpen ? 'blur(24px)' : 'blur(0px)',
           WebkitBackdropFilter: menuOpen ? 'blur(24px)' : 'blur(0px)',
-          background: menuOpen ? 'rgba(1, 1, 4, 0.98)' : 'transparent',
+          background: menuOpen ? 'rgba(3, 3, 8, 0.98)' : 'transparent',
           pointerEvents: menuOpen ? 'auto' : 'none',
           opacity: menuOpen ? 1 : 0,
           transition: 'all 0.5s cubic-bezier(0.32,0.72,0,1)',

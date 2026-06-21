@@ -16,6 +16,14 @@ contextBridge.exposeInMainWorld("electronAPI", {
   stopGeminiLive: (payload) => ipcRenderer.invoke("gemini-live-stop", payload),
   sendGeminiLiveAudio: (payload) => ipcRenderer.invoke("gemini-live-send-audio", payload),
   startGoogleAuth: (payload) => ipcRenderer.invoke("google-auth-start", payload),
+  checkForUpdates: () => ipcRenderer.invoke("updates-check"),
+  downloadUpdate: () => ipcRenderer.invoke("updates-download"),
+  installUpdate: () => ipcRenderer.invoke("updates-install"),
+  onUpdateEvent: (callback) => {
+    const handler = (_event, data) => callback(data);
+    ipcRenderer.on("update-event", handler);
+    return () => ipcRenderer.removeListener("update-event", handler);
+  },
   onGeminiLiveEvent: (callback) => {
     const handler = (_event, data) => callback(data);
     ipcRenderer.on("gemini-live-event", handler);

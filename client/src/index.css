@@ -220,3 +220,99 @@
 .ring-pulse { animation: ring-pulse 3s ease-out infinite; }
 .dash-flow { animation: dash-flow 1.4s linear infinite; }
 .drift-x { animation: drift-x 5s ease-in-out infinite; }
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); opacity: 0; }
+  20% { opacity: 0.8; }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(2400%); opacity: 0; }
+}
+
+@keyframes aurora-drift {
+  0%, 100% { transform: translate3d(-4%, -2%, 0) scale(1); opacity: 0.55; }
+  50% { transform: translate3d(4%, 3%, 0) scale(1.08); opacity: 0.8; }
+}
+
+@keyframes holo-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes ticker-bar {
+  0%, 100% { transform: scaleY(0.2); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes orbit {
+  0% { transform: rotate(0deg) translateX(var(--orbit-r, 40px)) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(var(--orbit-r, 40px)) rotate(-360deg); }
+}
+
+@keyframes spin-cw { to { transform: rotate(360deg); } }
+@keyframes spin-ccw { to { transform: rotate(-360deg); } }
+
+.spin-cw-30 { animation: spin-cw 30s linear infinite; }
+.spin-cw-50 { animation: spin-cw 50s linear infinite; }
+.spin-ccw-40 { animation: spin-ccw 40s linear infinite; }
+.spin-ccw-60 { animation: spin-ccw 60s linear infinite; }
+
+.scan-line { animation: scan-line 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+.aurora-drift { animation: aurora-drift 14s ease-in-out infinite; }
+.holo-edge {
+  background-size: 200% 200%;
+  animation: holo-shift 6s ease infinite;
+}
+.ticker-bar { animation: ticker-bar 1.4s ease-in-out infinite; transform-origin: bottom; }
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.holo-card {
+  position: relative;
+  isolation: isolate;
+}
+.holo-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    600px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(234, 10, 26, 0.55),
+    rgba(255, 255, 255, 0.08) 35%,
+    transparent 60%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.holo-card:hover::before { opacity: 1; }
+
+.holo-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(234, 10, 26, 0.12),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.holo-card:hover::after { opacity: 1; }
