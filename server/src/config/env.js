@@ -30,4 +30,23 @@ export const env = {
     accessTtl: process.env.JWT_ACCESS_TTL || '15m',
     refreshTtl: process.env.JWT_REFRESH_TTL || '7d',
   },
+  creem: {
+    apiKey: process.env.CREEM_API_KEY || 'creem_test_REPLACE_ME',
+    productId: process.env.CREEM_PRODUCT_ID || 'prod_REPLACE_ME',
+    products: {
+      starter: process.env.CREEM_PRODUCT_STARTER_ID || process.env.CREEM_PRODUCT_ID || 'prod_starter_REPLACE_ME',
+      plus: process.env.CREEM_PRODUCT_PLUS_ID || 'prod_plus_REPLACE_ME',
+      pro: process.env.CREEM_PRODUCT_PRO_ID || 'prod_pro_REPLACE_ME',
+      enterprise: process.env.CREEM_PRODUCT_ENTERPRISE_ID || 'prod_enterprise_REPLACE_ME',
+      topup100: process.env.CREEM_PRODUCT_TOPUP_100_ID || 'prod_topup_100_REPLACE_ME',
+    },
+    successUrl:
+      process.env.CREEM_SUCCESS_URL ||
+      `http://localhost:${process.env.PORT || '8000'}/payments/creem/success`,
+    testMode: (process.env.CREEM_TEST_MODE || 'true') !== 'false',
+    webhookSecret: process.env.CREEM_WEBHOOK_SECRET || 'whsec_REPLACE_ME',
+    placeholderCheckoutUrl:
+      process.env.CREEM_PLACEHOLDER_CHECKOUT_URL ||
+      'https://www.creem.io/dashboard/home',
+  },
 }

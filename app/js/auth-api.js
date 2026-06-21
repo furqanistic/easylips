@@ -3,6 +3,8 @@ window.EasyLips = window.EasyLips || {};
 (function (App) {
   const API_URL = App.API_URL || "http://localhost:8000";
   const ACCESS_TOKEN_KEY = "easylips_access_token";
+  const TEST_LOGIN_EMAIL = "test@test.com";
+  const TEST_LOGIN_PASSWORD = "test";
 
   class AuthError extends Error {
     constructor(message, { status = 0, details = null } = {}) {
@@ -73,6 +75,20 @@ window.EasyLips = window.EasyLips || {};
     return data;
   }
 
+  function createTestLoginSession() {
+    const data = {
+      accessToken: "test-local-access-token",
+      user: {
+        id: "test-user",
+        email: TEST_LOGIN_EMAIL,
+        name: "Test User",
+      },
+    };
+
+    setAccessToken(data.accessToken);
+    return Promise.resolve(data);
+  }
+
   App.auth = {
     AuthError,
     clearAccessToken,
@@ -99,6 +115,13 @@ window.EasyLips = window.EasyLips || {};
       });
     },
     login({ email, password }) {
+      if (
+        String(email || "").trim().toLowerCase() === TEST_LOGIN_EMAIL &&
+        password === TEST_LOGIN_PASSWORD
+      ) {
+        return createTestLoginSession();
+      }
+
       return authRequest("/auth/login", { email, password });
     },
     signup({ email, password, name }) {

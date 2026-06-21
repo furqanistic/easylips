@@ -1067,6 +1067,20 @@ ipcMain.handle("google-auth-start", (_event, payload = {}) => {
   });
 });
 
+ipcMain.handle("open-external-url", async (_event, url) => {
+  try {
+    const parsed = new URL(String(url || ""));
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+      return { ok: false, message: "Only web checkout links can be opened." };
+    }
+
+    await shell.openExternal(parsed.toString());
+    return { ok: true };
+  } catch {
+    return { ok: false, message: "The checkout link is invalid." };
+  }
+});
+
 ipcMain.handle("gemini-live-start", (_event, payload = {}) => {
   return createGeminiLiveSession({
     targetLanguageCode: payload.targetLanguageCode,

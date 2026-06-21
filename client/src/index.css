@@ -316,3 +316,21 @@
   z-index: 0;
 }
 .holo-card:hover::after { opacity: 1; }
+
+/* Pricing card hover — GPU-accelerated, works on low-end devices */
+.pricing-card {
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1),
+              box-shadow 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform;
+}
+.pricing-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 24px 60px rgba(234, 10, 26, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+@media (hover: none) {
+  .pricing-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

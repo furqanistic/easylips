@@ -25,11 +25,14 @@ EasyLips.buildReadySummaryRows = function buildReadySummaryRows(state) {
     : "Off";
   const remainingMinutes = Math.max(
     0,
-    Math.ceil((state.remainingTranslationSeconds ?? 120 * 60) / 60),
+    Math.ceil((state.remainingTranslationSeconds ?? 90 * 60) / 60),
   );
+  const plan = EasyLips.PAYMENT_PLANS?.find((item) => item.id === state.selectedPaymentPlanId);
 
   return [
     { icon: icons.user, label: "Account", value: "Connected" },
+    { icon: icons.info, label: "Plan", value: plan?.name || "Starter" },
+    { icon: icons.info, label: "Auto top-up", value: state.autoTopUpEnabled ? "$6 / 100 min" : "Off" },
     { icon: icons.info, label: "Minutes left", value: `${remainingMinutes} min` },
     { icon: icons.microphone, label: "I speak", value: speakValue },
     { icon: icons.translate, label: "Translate to", value: state.translateLanguage },

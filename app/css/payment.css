@@ -1,0 +1,239 @@
+.main.main--payment {
+  overflow: hidden;
+}
+
+.content--payment {
+  max-width: 820px;
+  text-align: center;
+}
+
+.content--payment .heading {
+  font-size: 30px;
+}
+
+.content--payment .subheading {
+  margin-bottom: 20px;
+}
+
+.payment-plans {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.payment-plan-card {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(8, 8, 8, 0.92);
+  color: var(--white);
+  text-align: left;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.payment-plan-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.payment-plan-card--selected {
+  border-color: var(--red-600);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.payment-plan-card--highlight:not(.payment-plan-card--selected) {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.payment-plan-topline {
+  width: 100%;
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.payment-plan-name {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.payment-plan-badge {
+  flex-shrink: 0;
+  min-height: 20px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--red-600);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.payment-plan-price {
+  min-height: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.payment-price-value {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--white);
+}
+
+.payment-price-period {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.payment-plan-audience,
+.payment-plan-minutes {
+  display: block;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.payment-plan-audience {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.payment-plan-minutes {
+  margin-top: auto;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.payment-topup {
+  width: 100%;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  text-align: left;
+}
+
+.payment-topup-copy-wrap {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.payment-topup-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--white);
+}
+
+.payment-topup-copy {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.payment-toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.payment-toggle-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.payment-toggle-track {
+  width: 42px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  transition: background 0.2s ease;
+}
+
+.payment-toggle-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.payment-toggle-input:checked + .payment-toggle-track {
+  background: var(--red-600);
+}
+
+.payment-toggle-input:checked + .payment-toggle-track .payment-toggle-thumb {
+  transform: translateX(18px);
+}
+
+.payment-toggle-text {
+  min-width: 22px;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.payment-checkout-btn {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.payment-status {
+  width: 100%;
+  min-height: 20px;
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.payment-status[data-status="loading"] {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.payment-status[data-status="opened"],
+.payment-status[data-status="success"] {
+  color: #62d38b;
+}
+
+.payment-status[data-status="error"] {
+  color: #ff8a8a;
+}
+
+@media (max-width: 1100px) {
+  .payment-plans {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .payment-plan-card {
+    min-height: 156px;
+  }
+}

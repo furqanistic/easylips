@@ -16,6 +16,7 @@ contextBridge.exposeInMainWorld("electronAPI", {
   stopGeminiLive: (payload) => ipcRenderer.invoke("gemini-live-stop", payload),
   sendGeminiLiveAudio: (payload) => ipcRenderer.invoke("gemini-live-send-audio", payload),
   startGoogleAuth: (payload) => ipcRenderer.invoke("google-auth-start", payload),
+  openExternalUrl: (url) => ipcRenderer.invoke("open-external-url", url),
   checkForUpdates: () => ipcRenderer.invoke("updates-check"),
   downloadUpdate: () => ipcRenderer.invoke("updates-download"),
   installUpdate: () => ipcRenderer.invoke("updates-install"),

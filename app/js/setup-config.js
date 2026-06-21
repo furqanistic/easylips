@@ -4,13 +4,15 @@ EasyLips.SETUP_STEPS = {
   ACCOUNT: 1,
   MICROPHONE: 2,
   LANGUAGES: 3,
-  READY: 4,
+  PAYMENT: 4,
+  READY: 5,
 };
 
 EasyLips.SETUP_STEP_LABELS = [
   { label: "ACCOUNT" },
   { label: "MICROPHONE" },
   { label: "LANGUAGES" },
+  { label: "PAYMENT" },
   { label: "READY" },
 ];
 

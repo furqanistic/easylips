@@ -79,6 +79,10 @@ export function Hero() {
         >
           <PrimaryCta />
           <SecondaryCta />
+          <div className="hidden sm:flex" style={{ gap: '10px' }}>
+            <DownloadBtn platform="mac" />
+            <DownloadBtn platform="windows" />
+          </div>
         </motion.div>
 
         <motion.div
@@ -522,6 +526,45 @@ function SecondaryCta() {
   )
 }
 
+function DownloadBtn({ platform }: { platform: 'mac' | 'windows' }) {
+  return (
+    <motion.a
+      href={`#download-${platform}`}
+      whileHover={{ y: -1, borderColor: 'rgba(234,10,26,0.5)', boxShadow: '0 6px 24px rgba(234,10,26,0.22)' }}
+      whileTap={{ scale: 0.985 }}
+      transition={{ duration: 0.2, ease }}
+      className="inline-flex items-center gap-2.5"
+      style={{
+        textDecoration: 'none',
+        border: '1px solid rgba(255,255,255,0.12)',
+        background: 'linear-gradient(180deg, rgba(22,22,24,0.9), rgba(12,12,14,0.8))',
+        color: '#F4F4F5',
+        fontSize: '14.5px',
+        fontWeight: 600,
+        letterSpacing: '-0.02em',
+        padding: '11px 18px',
+        borderRadius: '12px',
+      }}
+    >
+      {platform === 'mac' ? <MacIcon /> : <WindowsIcon />}
+      <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
+        <span
+          style={{
+            fontSize: '9px',
+            color: 'rgba(255,255,255,0.45)',
+            fontWeight: 500,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+          }}
+        >
+          Download for
+        </span>
+        {platform === 'mac' ? 'macOS' : 'Windows'}
+      </span>
+    </motion.a>
+  )
+}
+
 function HeroBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
@@ -548,6 +591,32 @@ function HeroBackground() {
         style={{ background: 'radial-gradient(circle, rgba(234,10,26,0.09), transparent 70%)' }}
       />
     </div>
+  )
+}
+
+function MacIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M17.05 8.78c-.03-2.28 1.85-3.38 1.93-3.44-1.05-1.54-2.69-1.75-3.27-1.78-1.4-.14-2.71.82-3.42.82-.7 0-1.79-.8-2.94-.78-1.51.02-2.9.88-3.68 2.24-1.57 2.73-.4 6.77 1.13 8.98.75 1.09 1.64 2.31 2.81 2.27 1.13-.04 1.56-.73 2.92-.73s1.75.73 2.94.71c1.22-.02 1.99-1.11 2.73-2.21.86-1.25 1.21-2.46 1.23-2.53-.03-.01-2.37-.91-2.39-3.61z"
+        fill="#ea0a1a"
+      />
+      <path
+        d="M15.02 3.44C15.69 2.68 16.17 1.62 16.01.62c-.9.04-2.01.6-2.66 1.36-.58.68-1.08 1.76-.9 2.79.94.07 1.91-.51 2.57-1.33z"
+        fill="#ea0a1a"
+      />
+    </svg>
+  )
+}
+
+function WindowsIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M3 5.4L10.3 4.4V11H3V5.4Z" fill="#ea0a1a" />
+      <path d="M12 4.1L21 2.8V11H12V4.1Z" fill="#ea0a1a" />
+      <path d="M3 13H10.3V19.6L3 18.6V13Z" fill="#ea0a1a" />
+      <path d="M12 13H21V21.2L12 19.9V13Z" fill="#ea0a1a" />
+    </svg>
   )
 }
 

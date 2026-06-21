@@ -1,4 +1,4 @@
-import { Navbar, Hero, Features, HowItWorks, Languages, Testimonials, CtaSection, Footer } from '@/components/landing'
+import { Navbar, Hero, Features, HowItWorks, Languages, Testimonials, Pricing, CtaSection, Footer } from '@/components/landing'
 
 export function LandingPage() {
   return (
@@ -6,10 +6,11 @@ export function LandingPage() {
       <div className="grain-overlay" aria-hidden />
       <Navbar />
       <Hero />
-      <Features />
       <HowItWorks />
       <Languages />
+      <Features />
       <Testimonials />
+      <Pricing />
       <CtaSection />
       <Footer />
     </main>

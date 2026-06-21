@@ -6,6 +6,7 @@
     VERIFY_EMAIL: "verify-email",
     MICROPHONE: "microphone",
     LANGUAGES: "languages",
+    PAYMENT: "payment",
     READY: "ready",
   };
 
@@ -17,6 +18,7 @@
     [VIEWS.VERIFY_EMAIL]: EasyLips.SETUP_STEPS.ACCOUNT,
     [VIEWS.MICROPHONE]: EasyLips.SETUP_STEPS.MICROPHONE,
     [VIEWS.LANGUAGES]: EasyLips.SETUP_STEPS.LANGUAGES,
+    [VIEWS.PAYMENT]: EasyLips.SETUP_STEPS.PAYMENT,
     [VIEWS.READY]: EasyLips.SETUP_STEPS.READY,
   };
 
@@ -48,7 +50,11 @@
       listenOutputDeviceLabel: "Default speakers",
       testOutputDeviceId: "default",
       testOutputDeviceLabel: "Default speakers",
-      remainingTranslationSeconds: 120 * 60,
+      selectedPaymentPlanId: "starter",
+      autoTopUpEnabled: false,
+      topUpBlockMinutes: 100,
+      paymentStatus: "idle",
+      remainingTranslationSeconds: 90 * 60,
     };
 
     const titleBar = App.createTitleBar();
@@ -82,6 +88,10 @@
 
     function goToLanguages() {
       showView(VIEWS.LANGUAGES);
+    }
+
+    function goToPayment() {
+      showView(VIEWS.PAYMENT);
     }
 
     function goToReady() {
@@ -129,6 +139,22 @@
       }
 
       if (state.remainingTranslationSeconds <= 0) {
+        if (state.autoTopUpEnabled) {
+          state.remainingTranslationSeconds = state.topUpBlockMinutes * 60;
+          syncTrayControls();
+          App.toast?.({
+            title: "Extra minutes added",
+            message: `$6 top-up enabled for ${state.topUpBlockMinutes} more translation minutes.`,
+            type: "info",
+          });
+          if (activeView === VIEWS.READY) {
+            views[VIEWS.READY] = refreshReadyView();
+            viewMount.replaceChildren(views[VIEWS.READY]);
+            views[VIEWS.READY].classList.add("view--visible");
+          }
+          return;
+        }
+
         stopGeminiLiveTranslation();
       }
     }
@@ -141,7 +167,7 @@
         inputDeviceId: state.inputDeviceId,
         testOutputDeviceId: state.testOutputDeviceId,
         onBack: () => showView(VIEWS.MICROPHONE),
-        onContinue: () => goToReady(),
+        onContinue: () => goToPayment(),
         onSpeakChange: (language) => {
           state.speakLanguage = language;
           syncTrayControls();
@@ -569,6 +595,67 @@
       return nextView;
     }
 
+    function refreshPaymentView() {
+      const nextView = App.createPaymentView({
+        email: state.email,
+        selectedPlanId: state.selectedPaymentPlanId,
+        autoTopUpEnabled: state.autoTopUpEnabled,
+        paymentStatus: state.paymentStatus,
+        onBack: () => showView(VIEWS.LANGUAGES),
+        onPlanChange: (planId) => {
+          state.selectedPaymentPlanId = planId;
+        },
+        onAutoTopUpChange: (enabled) => {
+          state.autoTopUpEnabled = enabled;
+        },
+        onContinue: () => goToReady(),
+        onCheckout: async ({ planId, autoTopUpEnabled, setStatus } = {}) => {
+          state.selectedPaymentPlanId = planId || state.selectedPaymentPlanId;
+          state.autoTopUpEnabled = autoTopUpEnabled === true;
+          const checkout = await App.payments.createCreemCheckout({
+            planId: state.selectedPaymentPlanId,
+            requestId: `desktop-${Date.now()}`,
+            customer: state.email ? { email: state.email } : undefined,
+            metadata: {
+              source: "desktop_app",
+              setupStep: "payment",
+              planId: state.selectedPaymentPlanId,
+              autoTopUpEnabled: state.autoTopUpEnabled,
+              topUpBlockMinutes: state.topUpBlockMinutes,
+              topUpPriceUsd: "6.00",
+            },
+          });
+
+          const checkoutUrl = checkout?.checkout?.checkoutUrl;
+          if (!checkoutUrl) {
+            return { ok: false, message: "Creem did not return a checkout link." };
+          }
+
+          const opened = await window.electronAPI?.openExternalUrl?.(checkoutUrl);
+          if (!opened?.ok) {
+            return { ok: false, message: opened?.message || "Could not open checkout." };
+          }
+
+          state.paymentStatus = "opened";
+          const planMinutes = EasyLips.PAYMENT_PLAN_MINUTES?.[state.selectedPaymentPlanId];
+          if (Number.isFinite(planMinutes)) {
+            state.remainingTranslationSeconds = planMinutes * 60;
+            syncTrayControls();
+          }
+          setStatus?.(
+            "opened",
+            checkout.checkout?.placeholder
+              ? checkout.message || "Creem placeholder checkout opened."
+              : "Checkout opened in your browser.",
+          );
+          return { ok: true };
+        },
+      });
+
+      views[VIEWS.PAYMENT] = nextView;
+      return nextView;
+    }
+
     async function startTranslationFromTray() {
       if (liveBridge?.isRunning() || listenBridge?.isRunning()) {
         syncTrayControls();
@@ -770,6 +857,7 @@
     function updateMainLayout(viewName) {
       mainEl?.classList.toggle("main--languages", viewName === VIEWS.LANGUAGES);
       mainEl?.classList.toggle("main--microphone", viewName === VIEWS.MICROPHONE);
+      mainEl?.classList.toggle("main--payment", viewName === VIEWS.PAYMENT);
       mainEl?.classList.toggle("main--ready", viewName === VIEWS.READY);
     }
 
@@ -795,6 +883,10 @@
 
       if (name === VIEWS.MICROPHONE) {
         views[VIEWS.MICROPHONE] = refreshMicrophoneView();
+      }
+
+      if (name === VIEWS.PAYMENT) {
+        views[VIEWS.PAYMENT] = refreshPaymentView();
       }
 
       if (name === VIEWS.READY) {

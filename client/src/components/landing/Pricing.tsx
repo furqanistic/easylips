@@ -1,145 +1,104 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { motion, useInView } from 'motion/react'
 
 const ease = [0.32, 0.72, 0, 1] as const
 
+const RED = '#ea0a1a'
+const RED_BRIGHT = '#ff1f2e'
+
 const plans = [
   {
     name: 'Starter',
-    color: 'oklch(0.556 0 0)',
-    ctaStyle: 'ghost',
-    price: { monthly: '0', yearly: '0' },
-    description: 'For individuals trying real-time voice translation.',
-    cta: 'Get started free',
-    features: ['10 hours translation / month', '5 language pairs', 'Standard AI voices', 'Web app only', 'Community support'],
+    price: '$4.99',
+    period: '/month',
+    description: 'For casual users.',
+    minutes: '90',
+    unit: 'min / month',
+    features: ['All 70+ languages', 'Web app', 'Standard AI voices'],
+    cta: 'Get started',
+    style: 'ghost' as const,
+  },
+  {
+    name: 'Plus',
+    price: '$14.99',
+    period: '/month',
+    description: 'For freelancers, students, and small meetings.',
+    minutes: '275',
+    unit: 'min / month',
+    features: ['All 70+ languages', 'Desktop + web app', 'Neural voice cloning'],
+    cta: 'Go Plus',
+    style: 'ghost' as const,
   },
   {
     name: 'Pro',
-    color: 'oklch(0.55 0.22 25)',
-    ctaStyle: 'primary',
+    price: '$39.99',
+    period: '/month',
+    description: 'For serious users, client calls, daily usage.',
+    minutes: '750',
+    unit: 'min / month',
     badge: 'Most popular',
-    price: { monthly: '29', yearly: '19' },
-    description: 'For professionals who need unlimited translation.',
-    cta: 'Start Pro free',
-    features: ['Unlimited translation hours', 'All 70+ languages', 'Neural voice cloning', 'Desktop + mobile apps', 'API access', 'Priority support', 'Video dubbing (20 hrs/mo)'],
+    features: ['All 70+ languages', 'Desktop + mobile apps', 'Priority support', 'API access'],
+    cta: 'Start Pro',
+    style: 'primary' as const,
   },
   {
     name: 'Enterprise',
-    color: 'oklch(0.6 0.2 20)',
-    ctaStyle: 'ghost',
-    price: { monthly: 'Custom', yearly: 'Custom' },
-    description: 'For teams and organizations at scale.',
+    price: 'from $99',
+    period: '/month',
+    description: 'For teams and organizations.',
+    minutes: 'Custom',
+    unit: 'limits',
+    features: ['Team seats', 'Shared minutes', 'Admin dashboard', 'Priority support'],
     cta: 'Contact sales',
-    features: ['Everything in Pro', 'Unlimited video dubbing', 'Custom AI voice training', 'SSO & team management', 'SLA uptime guarantee', 'Dedicated account manager', 'On-premise deployment'],
+    style: 'ghost' as const,
   },
 ]
 
 export function Pricing() {
-  const [yearly, setYearly] = useState(true)
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, amount: 0.05 })
+  const ref = useRef<HTMLElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.1 })
 
   return (
     <section
       id="pricing"
       ref={ref}
-      className="relative overflow-hidden px-6 py-32"
-      style={{ background: '#050208' }}
+      className="relative overflow-hidden px-5 sm:px-6 lg:px-8"
+      style={{
+        paddingTop: 'clamp(80px, 10vw, 130px)',
+        paddingBottom: 'clamp(80px, 10vw, 120px)',
+        background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(234,10,26,0.06), transparent 60%), #050208',
+      }}
     >
-      {/* Background */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: 'radial-gradient(84.6% 73.49% at 50% 26.51%, oklch(0.55 0.22 25 / 0.06), transparent)',
-        }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-[1200px]">
-        {/* Header */}
+      <div className="relative z-10 mx-auto w-full" style={{ maxWidth: 1080 }}>
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 22 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease }}
-          className="mb-12 flex flex-col items-center text-center"
+          className="flex flex-col items-center text-center"
         >
-          <span
-            className="mb-5 inline-flex rounded-full px-3 py-1"
-            style={{
-              border: '1px solid oklch(0.55 0.22 25 / 0.15)',
-              background: 'oklch(0.55 0.22 25 / 0.06)',
-              fontSize: '11px',
-              fontWeight: 500,
-              color: 'oklch(0.55 0.22 25)',
-              letterSpacing: '0.073em',
-              textTransform: 'uppercase',
-            }}
-          >
-            Pricing
-          </span>
+          <SectionLabel>Pricing</SectionLabel>
           <h2
-            className="mb-6"
             style={{
-              fontSize: 'clamp(28px, 4vw, 48px)',
-              lineHeight: 1.1,
-              letterSpacing: '-0.04em',
-              fontWeight: 600,
-              color: '#ffffff',
+              fontFamily: "'Manrope', sans-serif",
+              fontSize: 'clamp(32px, 4.5vw, 54px)',
+              lineHeight: 1.06,
+              letterSpacing: '-0.045em',
+              fontWeight: 700,
+              color: '#F4F4F5',
+              maxWidth: 520,
+              marginTop: 18,
             }}
           >
             Simple pricing,
             <br />
-            powerful translation
+            <span style={{ color: RED }}>no surprises</span>.
           </h2>
-
-          {/* Billing toggle */}
-          <div className="flex items-center gap-3">
-            <span style={{ fontSize: '13px', color: yearly ? 'oklch(0.45 0 0)' : '#ffffff', transition: 'color 0.3s' }}>Monthly</span>
-            <button
-              onClick={() => setYearly(!yearly)}
-              aria-label="Toggle billing period"
-              className="relative cursor-pointer"
-              style={{
-                width: '44px',
-                height: '24px',
-                borderRadius: '12px',
-                background: yearly ? 'oklch(0.55 0.22 25)' : '#363739',
-                border: 'none',
-                transition: 'background 0.3s cubic-bezier(0.32,0.72,0,1)',
-              }}
-            >
-              <span
-                className="absolute top-0.5"
-                style={{
-                  left: yearly ? 'calc(100% - 22px)' : '2px',
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '50%',
-                  background: '#ffffff',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
-                  transition: 'left 0.3s cubic-bezier(0.32,0.72,0,1)',
-                }}
-              />
-            </button>
-            <span style={{ fontSize: '13px', color: yearly ? '#ffffff' : 'oklch(0.45 0 0)', display: 'flex', alignItems: 'center', gap: '6px', transition: 'color 0.3s' }}>
-              Yearly
-              <span
-                className="rounded px-1.5 py-0.5"
-                style={{
-                  background: 'oklch(0.7 0.2 120 / 0.12)',
-                  color: 'oklch(0.7 0.2 120)',
-                  fontSize: '10px',
-                  fontWeight: 500,
-                  letterSpacing: '0.02em',
-                }}
-              >
-                −34%
-              </span>
-            </span>
-          </div>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div
+          className="mt-14 grid gap-4 lg:mt-20"
+          style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}
+        >
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
@@ -147,123 +106,235 @@ export function Pricing() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, ease, delay: i * 0.08 }}
               className="relative"
-              style={{
-                padding: '2px',
-                borderRadius: '20px',
-                background: plan.ctaStyle === 'primary'
-                  ? 'linear-gradient(135deg, oklch(0.55 0.22 25 / 0.2), oklch(0.6 0.2 20 / 0.1))'
-                  : 'oklch(1 0 0 / 0.04)',
-                border: plan.ctaStyle === 'primary'
-                  ? '1px solid oklch(0.55 0.22 25 / 0.15)'
-                  : '1px solid oklch(1 0 0 / 0.06)',
-              }}
             >
               {plan.badge && (
                 <div
-                  className="absolute -top-3 left-1/2 whitespace-nowrap"
+                  className="absolute -top-3 left-1/2 z-10 whitespace-nowrap"
                   style={{
                     transform: 'translateX(-50%)',
-                    padding: '3px 12px',
+                    padding: '4px 14px',
                     borderRadius: '999px',
-                    background: 'linear-gradient(135deg, oklch(0.55 0.22 25), oklch(0.6 0.2 20))',
-                    color: '#ffffff',
-                    fontSize: '11px',
-                    fontWeight: 500,
-                    letterSpacing: '0.02em',
+                    background: `linear-gradient(135deg, ${RED}, ${RED_BRIGHT})`,
+                    color: '#fff',
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: '10px',
+                    fontWeight: 600,
+                    letterSpacing: '0.04em',
                   }}
                 >
                   {plan.badge}
                 </div>
               )}
               <div
-                className="flex h-full flex-col rounded-[18px] p-6"
+                className="pricing-card flex h-full flex-col"
                 style={{
-                  background: '#07080a',
-                  boxShadow: 'inset 0 1px 0 oklch(1 0 0 / 0.03)',
+                  borderRadius: '18px',
+                  border: plan.style === 'primary'
+                    ? `1px solid ${RED}30`
+                    : '1px solid rgba(255,255,255,0.06)',
+                  background: plan.style === 'primary'
+                    ? `linear-gradient(180deg, ${RED}08, transparent 40%), rgba(10,10,14,0.7)`
+                    : 'rgba(10,10,14,0.5)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  padding: '28px 24px',
+                  boxShadow: plan.style === 'primary'
+                    ? `0 20px 50px ${RED}10, inset 0 1px 0 rgba(255,255,255,0.04)`
+                    : 'inset 0 1px 0 rgba(255,255,255,0.03)',
                 }}
               >
-                <div className="mb-5">
-                  <span style={{ fontFamily: 'monospace', fontSize: '11px', fontWeight: 500, color: plan.color, letterSpacing: '0.04em' }}>
-                    {plan.name.toUpperCase()}
+                <span
+                  style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: '10.5px',
+                    fontWeight: 600,
+                    color: plan.style === 'primary' ? RED_BRIGHT : 'rgba(255,255,255,0.35)',
+                    letterSpacing: '0.12em',
+                  }}
+                >
+                  {plan.name.toUpperCase()}
+                </span>
+
+                <div className="mt-4 flex items-end" style={{ gap: 2 }}>
+                  <span
+                    style={{
+                      fontFamily: "'Manrope', sans-serif",
+                      fontSize: 'clamp(32px, 3.5vw, 42px)',
+                      fontWeight: 700,
+                      color: '#F4F4F5',
+                      letterSpacing: '-0.04em',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {plan.price}
                   </span>
-                  <div className="mt-3 flex items-end gap-1">
-                    {plan.price.monthly !== 'Custom' ? (
-                      <>
-                        <span style={{ fontSize: '40px', fontWeight: 600, color: '#ffffff', letterSpacing: '-0.04em', lineHeight: 1 }}>
-                          ${yearly ? plan.price.yearly : plan.price.monthly}
-                        </span>
-                        <span style={{ fontSize: '13px', color: '#454647', marginBottom: '4px' }}>/mo</span>
-                      </>
-                    ) : (
-                      <span style={{ fontSize: '32px', fontWeight: 600, color: '#ffffff', letterSpacing: '-0.04em', lineHeight: 1 }}>
-                        Custom
-                      </span>
-                    )}
-                  </div>
-                  <p style={{ fontSize: '13px', color: 'oklch(0.45 0 0)', marginTop: '8px' }}>{plan.description}</p>
+                  <span
+                    style={{
+                      fontSize: '13px',
+                      color: 'rgba(255,255,255,0.3)',
+                      marginBottom: 4,
+                    }}
+                  >
+                    {plan.period}
+                  </span>
                 </div>
 
-                <ul className="flex flex-1 flex-col gap-2.5" style={{ listStyle: 'none', padding: 0, margin: '0 0 24px' }}>
+                <p
+                  style={{
+                    marginTop: 10,
+                    fontSize: '14px',
+                    lineHeight: 1.5,
+                    color: 'rgba(255,255,255,0.45)',
+                    minHeight: '42px',
+                  }}
+                >
+                  {plan.description}
+                </p>
+
+                <div
+                  style={{
+                    marginTop: 14,
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    gap: 6,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "'Manrope', sans-serif",
+                      fontSize: 'clamp(28px, 3vw, 36px)',
+                      fontWeight: 800,
+                      color: plan.style === 'primary' ? RED_BRIGHT : '#F4F4F5',
+                      letterSpacing: '-0.04em',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {plan.minutes}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "'Manrope', sans-serif",
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      color: 'rgba(255,255,255,0.4)',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {plan.unit}
+                  </span>
+                </div>
+
+                <div
+                  className="my-5"
+                  style={{
+                    height: 1,
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)',
+                  }}
+                />
+
+                <ul className="flex flex-1 flex-col" style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', gap: 10 }}>
                   {plan.features.map((feat) => (
-                    <li key={feat} className="flex items-start gap-2.5">
+                    <li key={feat} className="flex items-start" style={{ gap: 10 }}>
                       <span
                         className="mt-0.5 flex shrink-0 items-center justify-center"
                         style={{
-                          width: '16px',
-                          height: '16px',
-                          borderRadius: '50%',
-                          background: `${plan.color}12`,
+                          width: 16,
+                          height: 16,
+                          borderRadius: 999,
+                          background: plan.style === 'primary' ? `${RED}15` : 'rgba(255,255,255,0.05)',
                         }}
                       >
                         <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-                          <path d="M1.5 4l1.5 1.5L6.5 2" stroke={plan.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path
+                            d="M1.5 4l1.5 1.5L6.5 2"
+                            stroke={plan.style === 'primary' ? RED_BRIGHT : 'rgba(255,255,255,0.3)'}
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                       </span>
-                      <span style={{ fontSize: '13px', color: 'oklch(0.6 0 0)' }}>{feat}</span>
+                      <span style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.5)' }}>{feat}</span>
                     </li>
                   ))}
                 </ul>
 
-                <PlanCta plan={plan} />
+                <a
+                  href="#get-started"
+                  className="mt-auto flex items-center justify-center text-center"
+                  style={{
+                    padding: '11px 16px',
+                    borderRadius: '12px',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    fontFamily: "'Manrope', sans-serif",
+                    textDecoration: 'none',
+                    transition: 'all 0.3s cubic-bezier(0.32,0.72,0,1)',
+                    ...(plan.style === 'primary'
+                      ? {
+                          background: RED,
+                          color: '#fff',
+                          boxShadow: `0 0 24px ${RED}30`,
+                        }
+                      : {
+                          background: 'transparent',
+                          color: 'rgba(255,255,255,0.6)',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                        }),
+                  }}
+                >
+                  {plan.cta}
+                </a>
               </div>
             </motion.div>
           ))}
         </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.7, ease, delay: 0.4 }}
+          className="mt-10 text-center"
+          style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: '12px',
+            color: 'rgba(255,255,255,0.3)',
+            letterSpacing: '0.02em',
+          }}
+        >
+          Need more? Extra minutes available at $6 / 100 min.
+        </motion.p>
       </div>
     </section>
   )
 }
 
-function PlanCta({ plan }: { plan: typeof plans[0] }) {
-  const [hovered, setHovered] = useState(false)
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <a
-      href="#get-started"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="flex items-center justify-center text-center"
+    <div
+      className="inline-flex items-center"
       style={{
-        padding: '10px',
-        borderRadius: '10px',
-        fontSize: '14px',
-        fontWeight: 500,
-        textDecoration: 'none',
-        transition: 'all 0.3s cubic-bezier(0.32,0.72,0,1)',
-        ...(plan.ctaStyle === 'primary'
-          ? {
-              background: hovered ? 'oklch(0.55 0.22 25)' : 'oklch(0.55 0.22 25 / 0.9)',
-              color: '#000000',
-              boxShadow: '0 0 20px oklch(0.55 0.22 25 / 0.2)',
-            }
-          : {
-              background: 'transparent',
-              color: hovered ? '#ffffff' : 'oklch(0.556 0 0)',
-              border: `1px solid ${hovered ? 'oklch(1 0 0 / 0.15)' : 'oklch(1 0 0 / 0.08)'}`,
-            }
-        ),
+        gap: 8,
+        padding: '5px 13px',
+        borderRadius: '999px',
+        border: '1px solid rgba(234,10,26,0.2)',
+        background: 'rgba(234,10,26,0.06)',
       }}
     >
-      {plan.cta}
-    </a>
+      <span
+        style={{ width: 5, height: 5, borderRadius: 999, background: RED_BRIGHT, boxShadow: `0 0 6px ${RED_BRIGHT}` }}
+      />
+      <span
+        style={{
+          fontFamily: "'JetBrains Mono', monospace",
+          fontSize: '10.5px',
+          fontWeight: 600,
+          color: RED_BRIGHT,
+          letterSpacing: '0.16em',
+        }}
+      >
+        {children}
+      </span>
+    </div>
   )
 }
