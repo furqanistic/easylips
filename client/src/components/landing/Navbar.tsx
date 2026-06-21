@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 const navLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'Languages', href: '#languages' },
+  { label: 'Product', href: '#product' },
+  { label: 'Use Cases', href: '#use-cases' },
   { label: 'Pricing', href: '#pricing' },
+  { label: 'Resources', href: '#resources' },
 ]
 
 export function Navbar() {
@@ -21,40 +22,39 @@ export function Navbar() {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-5">
         <nav
-          className="flex items-center justify-between gap-6 md:gap-8 px-3 py-2.5 md:px-5 md:py-3 w-full max-w-[calc(100%-2rem)] lg:max-w-[1100px]"
+          className="flex items-center justify-between gap-6 md:gap-8 px-4 py-2.5 md:px-5 md:py-3 w-full max-w-[calc(100%-2rem)] lg:max-w-[1140px]"
           style={{
             borderRadius: '999px',
             transition: 'all 0.5s cubic-bezier(0.32,0.72,0,1)',
-            background: scrolled ? 'oklch(0.055 0 0 / 0.92)' : 'oklch(0.055 0 0 / 0.55)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid oklch(1 0 0 / 0.06)',
-            boxShadow: scrolled ? '0 4px 30px oklch(0.55 0.22 25 / 0.06)' : 'none',
+            background: scrolled ? 'rgba(1, 1, 4, 0.96)' : 'rgba(1, 1, 4, 0.78)',
+            border: '1px solid rgba(234, 10, 26, 0.14)',
+            boxShadow: scrolled
+              ? '0 8px 40px rgba(234, 10, 26, 0.10), inset 0 1px 0 rgba(255,255,255,0.04)'
+              : 'inset 0 1px 0 rgba(255,255,255,0.03)',
           }}
         >
           <a href="/" className="flex items-center gap-2.5 shrink-0 no-underline">
             <span
               className="flex items-center justify-center"
               style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, oklch(0.55 0.22 25) 0%, oklch(0.6 0.2 20) 100%)',
-                boxShadow: '0 0 20px oklch(0.55 0.22 25 / 0.35)',
+                width: '34px',
+                height: '34px',
+                borderRadius: '11px',
+                background: 'linear-gradient(135deg, #ea0a1a 0%, #ff1f2e 100%)',
+                boxShadow: '0 0 22px rgba(234, 10, 26, 0.45)',
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                <path d="M12 3L15 6M12 3L9 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="12" cy="12" r="3" fill="white" />
-              </svg>
+              <WaveformLogo />
             </span>
-            <span className="text-white font-semibold text-[15px] tracking-tight">
-              BetterLips
+            <span
+              className="text-white font-semibold tracking-tight"
+              style={{ fontSize: '16px', letterSpacing: '-0.02em' }}
+            >
+              Easy Lips
             </span>
           </a>
 
-          <ul className="hidden lg:flex items-center gap-7 m-0 p-0 list-none">
+          <ul className="hidden lg:flex items-center gap-8 m-0 p-0 list-none">
             {navLinks.map((link) => (
               <li key={link.label}>
                 <NavLink href={link.href} label={link.label} />
@@ -63,8 +63,7 @@ export function Navbar() {
           </ul>
 
           <div className="hidden lg:flex items-center gap-2.5">
-            <GhostBtn href="#demo" label="Sign in" />
-            <PrimaryBtn href="#get-started" label="Join waitlist" />
+            <StartTranslatingBtn />
           </div>
 
           <button
@@ -101,7 +100,7 @@ export function Navbar() {
         style={{
           backdropFilter: menuOpen ? 'blur(24px)' : 'blur(0px)',
           WebkitBackdropFilter: menuOpen ? 'blur(24px)' : 'blur(0px)',
-          background: menuOpen ? 'oklch(0.055 0 0 / 0.95)' : 'transparent',
+          background: menuOpen ? 'rgba(1, 1, 4, 0.98)' : 'transparent',
           pointerEvents: menuOpen ? 'auto' : 'none',
           opacity: menuOpen ? 1 : 0,
           transition: 'all 0.5s cubic-bezier(0.32,0.72,0,1)',
@@ -126,25 +125,30 @@ export function Navbar() {
             {link.label}
           </a>
         ))}
-        <a
-          href="#get-started"
+        <Link
+          to="/signup"
           onClick={() => setMenuOpen(false)}
           style={{
             marginTop: '8px',
-            padding: '12px 24px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '12px 26px',
             borderRadius: '999px',
-            background: 'linear-gradient(135deg, oklch(0.55 0.22 25) 0%, oklch(0.6 0.2 20) 100%)',
-            color: '#000000',
+            background: 'linear-gradient(135deg, #ea0a1a 0%, #ff1f2e 100%)',
+            color: '#ffffff',
             fontSize: '15px',
             fontWeight: 600,
             textDecoration: 'none',
+            boxShadow: '0 0 24px rgba(234, 10, 26, 0.45)',
             opacity: menuOpen ? 1 : 0,
             transform: menuOpen ? 'translateY(0)' : 'translateY(24px)',
             transition: 'all 0.5s cubic-bezier(0.32,0.72,0,1) 0.35s',
           }}
         >
-          Join waitlist
-        </a>
+          <WaveformLogo size={15} />
+          Start Translating
+        </Link>
       </div>
     </>
   )
@@ -158,11 +162,11 @@ function NavLink({ href, label }: { href: string; label: string }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        color: hovered ? '#ffffff' : 'oklch(0.556 0 0)',
+        color: hovered ? '#ffffff' : 'rgba(255, 255, 255, 0.62)',
         fontSize: '14px',
-        fontWeight: 400,
+        fontWeight: 500,
         textDecoration: 'none',
-        letterSpacing: '0.01em',
+        letterSpacing: '-0.01em',
         transition: 'color 0.3s cubic-bezier(0.32,0.72,0,1)',
       }}
     >
@@ -171,50 +175,46 @@ function NavLink({ href, label }: { href: string; label: string }) {
   )
 }
 
-function GhostBtn({ href, label }: { href: string; label: string }) {
+function StartTranslatingBtn() {
   const [hovered, setHovered] = useState(false)
   return (
-    <a
-      href={href}
+    <Link
+      to="/signup"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        color: hovered ? '#ffffff' : 'oklch(0.556 0 0)',
-        fontSize: '14px',
-        fontWeight: 400,
-        textDecoration: 'none',
-        padding: '6px 12px',
-        borderRadius: '999px',
-        border: `1px solid ${hovered ? 'oklch(1 0 0 / 0.15)' : 'oklch(1 0 0 / 0.08)'}`,
-        transition: 'all 0.3s cubic-bezier(0.32,0.72,0,1)',
-      }}
-    >
-      {label}
-    </a>
-  )
-}
-
-function PrimaryBtn({ href, label }: { href: string; label: string }) {
-  const [hovered, setHovered] = useState(false)
-  return (
-    <a
-      href={href}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        background: 'linear-gradient(135deg, oklch(0.55 0.22 25) 0%, oklch(0.6 0.2 20) 100%)',
-        color: '#000000',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '8px',
+        background: 'linear-gradient(135deg, #ea0a1a 0%, #ff1f2e 100%)',
+        color: '#ffffff',
         fontSize: '14px',
         fontWeight: 600,
         textDecoration: 'none',
-        padding: '6px 14px',
+        padding: '8px 16px',
         borderRadius: '999px',
-        boxShadow: hovered ? '0 0 20px oklch(0.55 0.22 25 / 0.3)' : '0 0 12px oklch(0.55 0.22 25 / 0.15)',
+        letterSpacing: '-0.01em',
+        boxShadow: hovered
+          ? '0 0 26px rgba(234, 10, 26, 0.55), 0 6px 20px rgba(234, 10, 26, 0.25)'
+          : '0 0 16px rgba(234, 10, 26, 0.35)',
         transition: 'all 0.3s cubic-bezier(0.32,0.72,0,1)',
         transform: hovered ? 'translateY(-1px)' : 'translateY(0)',
       }}
     >
-      {label}
-    </a>
+      <WaveformLogo size={14} />
+      Start Translating
+    </Link>
+  )
+}
+
+function WaveformLogo({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 18 18" fill="none" aria-hidden>
+      <rect x="1" y="7" width="2" height="4" rx="1" fill="#ffffff" />
+      <rect x="4.6" y="4" width="2" height="10" rx="1" fill="#ffffff" />
+      <rect x="8.2" y="2" width="2" height="14" rx="1" fill="#ffffff" />
+      <rect x="11.8" y="5" width="2" height="8" rx="1" fill="#ffffff" />
+      <rect x="15.4" y="7.5" width="2" height="3" rx="1" fill="#ffffff" />
+    </svg>
   )
 }

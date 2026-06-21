@@ -1,27 +1,12 @@
-import {
-  Navbar,
-  Hero,
-  Features,
-  HowItWorks,
-  Languages,
-  Testimonials,
-  Pricing,
-  CtaSection,
-  Footer,
-} from '@/components/landing'
+import { Navbar, Hero, TalkSection, CtaSection } from '@/components/landing'
 
 export function LandingPage() {
   return (
     <main className="dark">
       <Navbar />
       <Hero />
-      <Features />
-      <HowItWorks />
-      <Languages />
-      <Testimonials />
-      <Pricing />
+      <TalkSection />
       <CtaSection />
-      <Footer />
     </main>
   )
 }

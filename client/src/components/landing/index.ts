@@ -1,5 +1,6 @@
 export { Navbar } from './Navbar'
 export { Hero } from './Hero'
+export { TalkSection } from './TalkSection'
 export { Features } from './Features'
 export { HowItWorks } from './HowItWorks'
 export { Languages } from './Languages'

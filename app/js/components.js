@@ -15,7 +15,6 @@ window.EasyLips = window.EasyLips || {};
       </div>
       <div class="window-controls">
         <button class="window-btn minimize" type="button" aria-label="Minimize">${icons.minimize}</button>
-        <button class="window-btn maximize" type="button" aria-label="Maximize">${icons.maximize}</button>
         <button class="window-btn close" type="button" aria-label="Close">${icons.close}</button>
       </div>
     `;
@@ -113,6 +112,40 @@ window.EasyLips = window.EasyLips || {};
     field.appendChild(labelEl);
     field.appendChild(wrap);
     return field;
+  };
+
+  App.setFieldError = function setFieldError(input, message = "") {
+    if (!input) return;
+
+    const field = input.closest(".field");
+    if (!field) return;
+
+    let error = field.querySelector(".field-error");
+    if (!error) {
+      error = document.createElement("p");
+      error.className = "field-error";
+      error.id = `${input.id || input.name}-error`;
+      field.appendChild(error);
+    }
+
+    if (message) {
+      field.classList.add("field--error");
+      input.setAttribute("aria-invalid", "true");
+      input.setAttribute("aria-describedby", error.id);
+      error.textContent = message;
+      return;
+    }
+
+    field.classList.remove("field--error");
+    input.removeAttribute("aria-invalid");
+    input.removeAttribute("aria-describedby");
+    error.textContent = "";
+  };
+
+  App.clearFormErrors = function clearFormErrors(root) {
+    root?.querySelectorAll(".field-input").forEach((input) => {
+      App.setFieldError(input, "");
+    });
   };
 
   App.createFieldGroup = function createFieldGroup(fields = []) {
@@ -255,6 +288,25 @@ window.EasyLips = window.EasyLips || {};
     return btn;
   };
 
+  App.setButtonLoading = function setButtonLoading(button, loading, label = "Please wait") {
+    if (!button) return;
+
+    if (loading) {
+      button.dataset.originalHtml = button.innerHTML;
+      button.disabled = true;
+      button.classList.add("primary-btn--loading");
+      button.innerHTML = `<span>${label}</span>`;
+      return;
+    }
+
+    button.disabled = false;
+    button.classList.remove("primary-btn--loading");
+    if (button.dataset.originalHtml) {
+      button.innerHTML = button.dataset.originalHtml;
+      delete button.dataset.originalHtml;
+    }
+  };
+
   App.createInlineLink = function createInlineLink({
     label,
     className = "inline-link",
@@ -377,9 +429,6 @@ window.EasyLips = window.EasyLips || {};
   App.bindWindowControls = function bindWindowControls(root = document) {
     root.querySelector(".window-btn.minimize")?.addEventListener("click", () => {
       window.electronAPI?.minimize();
-    });
-    root.querySelector(".window-btn.maximize")?.addEventListener("click", () => {
-      window.electronAPI?.maximize();
     });
     root.querySelector(".window-btn.close")?.addEventListener("click", () => {
       window.electronAPI?.close();

@@ -3,6 +3,7 @@ window.EasyLips = window.EasyLips || {};
 (function (App) {
   const { icons } = App;
   const AUTO_DETECT_VALUE = "Auto-detect";
+  const DETECTED_BADGE_LABEL = "Detected";
 
   App.createLanguagePicker = function createLanguagePicker({
     id,
@@ -10,6 +11,7 @@ window.EasyLips = window.EasyLips || {};
     title,
     subtitle,
     value,
+    placeholder = "Choose language",
     languages = EasyLips.LANGUAGES,
     showAutoDetect = false,
     autoDetectEnabled = false,
@@ -60,8 +62,19 @@ window.EasyLips = window.EasyLips || {};
     trigger.setAttribute("aria-expanded", "true");
     trigger.setAttribute("aria-haspopup", "listbox");
     trigger.innerHTML = `
-      <span class="language-picker-value">${value}</span>
+      <span class="language-picker-value">${value || placeholder}</span>
       ${icons.chevronDown}
+    `;
+
+    const detectedWrap = document.createElement("div");
+    detectedWrap.className = "language-picker-detected";
+    detectedWrap.setAttribute("aria-live", "polite");
+    detectedWrap.innerHTML = `
+      <div class="language-picker-detected-circle">
+        <span class="language-picker-detected-label">${DETECTED_BADGE_LABEL}</span>
+        <span class="language-picker-detected-value">${value || AUTO_DETECT_VALUE}</span>
+      </div>
+      <p class="language-picker-detected-note">We will automatically detect the language you are speaking.</p>
     `;
 
     const panel = document.createElement("div");
@@ -87,11 +100,12 @@ window.EasyLips = window.EasyLips || {};
     });
 
     panel.append(searchWrap, list);
-    picker.append(header, trigger, panel);
+    picker.append(header, trigger, detectedWrap, panel);
 
     App.bindLanguagePicker(picker, {
       languages,
       value,
+      placeholder,
       autoDetectEnabled,
       onChange,
       onAutoDetectChange,
@@ -119,6 +133,7 @@ window.EasyLips = window.EasyLips || {};
     {
       languages = EasyLips.LANGUAGES,
       value,
+      placeholder = "Choose language",
       autoDetectEnabled = false,
       onChange,
       onAutoDetectChange,
@@ -127,12 +142,21 @@ window.EasyLips = window.EasyLips || {};
     const trigger = picker.querySelector(".language-picker-trigger");
     const valueEl = picker.querySelector(".language-picker-value");
     const panel = picker.querySelector(".language-picker-panel");
+    const detectedValueEl = picker.querySelector(".language-picker-detected-value");
     const searchInput = picker.querySelector(".language-picker-search-input");
     const list = picker.querySelector(".language-picker-list");
     const autoDetectInput = picker.querySelector(".toggle-switch-input");
 
-    let selected = value;
+    let selected = value || "";
     let autoDetect = autoDetectEnabled;
+
+    function syncSelectedOption(language) {
+      list.querySelectorAll(".language-option").forEach((option) => {
+        const isSelected = option.dataset.value === language;
+        option.classList.toggle("language-option--selected", isSelected);
+        option.setAttribute("aria-selected", isSelected ? "true" : "false");
+      });
+    }
 
     function syncAutoDetectState() {
       picker.classList.toggle("language-picker--autodetect", autoDetect);
@@ -141,8 +165,12 @@ window.EasyLips = window.EasyLips || {};
         valueEl.textContent = AUTO_DETECT_VALUE;
         trigger.setAttribute("aria-expanded", "false");
       } else {
-        valueEl.textContent = selected;
+        valueEl.textContent = selected || placeholder;
         trigger.setAttribute("aria-expanded", picker.classList.contains("language-picker--collapsed") ? "false" : "true");
+      }
+
+      if (detectedValueEl) {
+        detectedValueEl.textContent = selected || AUTO_DETECT_VALUE;
       }
     }
 
@@ -151,14 +179,29 @@ window.EasyLips = window.EasyLips || {};
 
       selected = language;
       valueEl.textContent = language;
-
-      list.querySelectorAll(".language-option").forEach((option) => {
-        const isSelected = option.dataset.value === language;
-        option.classList.toggle("language-option--selected", isSelected);
-        option.setAttribute("aria-selected", isSelected ? "true" : "false");
-      });
+      syncSelectedOption(language);
 
       onChange?.(language);
+    }
+
+    function setDetectedLanguage(language) {
+      if (!language) {
+        if (detectedValueEl) {
+          detectedValueEl.textContent = selected || AUTO_DETECT_VALUE;
+        }
+        return;
+      }
+
+      selected = language;
+      syncSelectedOption(language);
+
+      if (detectedValueEl) {
+        detectedValueEl.textContent = language;
+      }
+
+      if (!autoDetect) {
+        valueEl.textContent = language;
+      }
     }
 
     function setAutoDetect(enabled) {
@@ -209,6 +252,7 @@ window.EasyLips = window.EasyLips || {};
     }
 
     picker.setValue = setSelected;
+    picker.setDetectedLanguage = setDetectedLanguage;
     picker.getValue = () => (autoDetect ? null : selected);
     picker.isAutoDetect = () => autoDetect;
     picker.setAutoDetect = setAutoDetect;
@@ -250,6 +294,7 @@ window.EasyLips = window.EasyLips || {};
       title: "Translate to",
       subtitle: "Choose the language to translate to.",
       value: translateValue,
+      placeholder: "Select target language",
       onChange: onTranslateChange,
     });
 

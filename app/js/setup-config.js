@@ -13,3 +13,6 @@ EasyLips.SETUP_STEP_LABELS = [
   { label: "LANGUAGES" },
   { label: "READY" },
 ];
+
+EasyLips.API_URL = "http://localhost:8000";
+EasyLips.GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";

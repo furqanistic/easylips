@@ -85,11 +85,14 @@ window.EasyLips = window.EasyLips || {};
     const item = document.createElement("li");
     item.className = `language-option device-option${isSelected ? " language-option--selected" : ""}`;
     item.dataset.value = option.id;
+    if (option.virtual) item.dataset.virtual = "true";
+    if (option.installed === false) item.dataset.installed = "false";
     item.setAttribute("role", "option");
     item.setAttribute("aria-selected", isSelected ? "true" : "false");
     item.innerHTML = `
       <span class="language-option-leading">${resolveIcon(option.icon)}</span>
       <span class="language-option-label">${option.label}</span>
+      ${option.note ? `<span class="language-option-note">${option.note}</span>` : ""}
       <span class="language-option-trailing">${icons.check}</span>
     `;
     return item;
@@ -230,13 +233,39 @@ window.EasyLips = window.EasyLips || {};
 
   App.createMicrophonePanels = function createMicrophonePanels({
     inputDevices = [],
+    outputDevices = [],
+    listenInputDevices = [],
+    listenOutputDevices = [],
     inputValue,
     outputValue = "easy-lips-virtual",
+    listenInputValue = "system-audio",
+    listenOutputValue = "default",
+    listenEnabled = true,
     onInputChange,
     onOutputChange,
+    onListenInputChange,
+    onListenOutputChange,
+    onListenEnabledChange,
   } = {}) {
-    const row = document.createElement("div");
-    row.className = "language-panels microphone-panels";
+    const root = document.createElement("div");
+    root.className = "microphone-workspace";
+
+    const routeTabs = document.createElement("div");
+    routeTabs.className = "microphone-route-tabs";
+    routeTabs.setAttribute("aria-label", "Translation routes");
+
+    const speakTab = createRouteTab({
+      route: "speak",
+      title: "Speak to client",
+      subtitle: "Mic to Meet",
+      active: true,
+    });
+    const listenTab = createRouteTab({
+      route: "listen",
+      title: "Hear client",
+      subtitle: "Meet to headphones",
+    });
+    routeTabs.append(speakTab, listenTab);
 
     const inputFooter = App.createInputLevelFooter();
     const inputPicker = App.createDevicePicker({
@@ -259,29 +288,110 @@ window.EasyLips = window.EasyLips || {};
     const outputPicker = App.createDevicePicker({
       id: "output-mic",
       icon: icons.translate,
-      title: "Output as",
-      subtitle: "Use translated voice as a microphone in other apps.",
+      title: "Output to",
+      subtitle: "Choose where you want to hear the translated voice.",
       value: outputValue,
-      options: EasyLips.OUTPUT_DEVICES.map((device) => ({
-        id: device.id,
-        label: device.label,
-        icon: device.icon,
+      options: outputDevices.map((device) => ({
+        ...device,
       })),
       footer: outputFooter,
-      onChange: (option) => {
-        const tone = option.id === "easy-lips-virtual" ? "ready" : "idle";
-        const label = option.id === "easy-lips-virtual" ? "Ready" : "Selected";
-        outputFooter.className = `device-picker-footer device-picker-footer--status device-picker-footer--${tone}`;
-        outputFooter.querySelector(".status-text").textContent = label;
-        onOutputChange?.(option);
-      },
+      onChange: onOutputChange,
     });
 
-    row.append(inputPicker, arrow, outputPicker);
-    row.inputPicker = inputPicker;
-    row.outputPicker = outputPicker;
-    row.inputFooter = inputFooter;
+    const speakPanel = document.createElement("section");
+    speakPanel.className = "microphone-route-panel microphone-route-panel--active";
+    speakPanel.dataset.route = "speak";
+    speakPanel.append(inputPicker, arrow, outputPicker);
 
-    return row;
+    const listenInputFooter = App.createInputLevelFooter();
+    const listenInputPicker = App.createDevicePicker({
+      id: "listen-input",
+      icon: icons.headphones,
+      title: "Client audio",
+      subtitle: "Capture Google Meet or loopback audio.",
+      value: listenInputValue,
+      options: listenInputDevices,
+      footer: listenInputFooter,
+      onChange: onListenInputChange,
+    });
+
+    const listenArrow = document.createElement("div");
+    listenArrow.className = "language-panels-arrow";
+    listenArrow.setAttribute("aria-hidden", "true");
+    listenArrow.innerHTML = icons.arrowRight;
+
+    const listenOutputFooter = App.createOutputStatusFooter({
+      label: "Selected",
+      tone: "idle",
+    });
+    const listenOutputPicker = App.createDevicePicker({
+      id: "listen-output",
+      icon: icons.speaker,
+      title: "Listen on",
+      subtitle: "Choose your headphones for translated audio.",
+      value: listenOutputValue,
+      options: listenOutputDevices,
+      footer: listenOutputFooter,
+      onChange: onListenOutputChange,
+    });
+
+    const listenHeader = document.createElement("div");
+    listenHeader.className = "microphone-route-toggle";
+    listenHeader.innerHTML = `
+      <span>
+        <strong>Translate incoming audio</strong>
+        <small>Turn this on when the other person is speaking.</small>
+      </span>
+      <label class="toggle-switch" aria-label="Enable headphone translation">
+        <input class="toggle-switch-input" type="checkbox" ${listenEnabled ? "checked" : ""} />
+        <span class="toggle-switch-track"><span class="toggle-switch-thumb"></span></span>
+      </label>
+    `;
+
+    const listenPanel = document.createElement("section");
+    listenPanel.className = "microphone-route-panel";
+    listenPanel.dataset.route = "listen";
+    listenPanel.append(listenHeader, listenInputPicker, listenArrow, listenOutputPicker);
+
+    const listenToggle = listenHeader.querySelector(".toggle-switch-input");
+    listenToggle.addEventListener("change", () => {
+      onListenEnabledChange?.(listenToggle.checked);
+    });
+
+    routeTabs.addEventListener("click", (event) => {
+      const button = event.target.closest(".microphone-route-tab");
+      if (!button) return;
+      setRoute(button.dataset.route);
+    });
+
+    function setRoute(route) {
+      const showListen = route === "listen";
+      speakTab.classList.toggle("microphone-route-tab--active", !showListen);
+      listenTab.classList.toggle("microphone-route-tab--active", showListen);
+      speakPanel.classList.toggle("microphone-route-panel--active", !showListen);
+      listenPanel.classList.toggle("microphone-route-panel--active", showListen);
+    }
+
+    root.append(routeTabs, speakPanel, listenPanel);
+    root.inputPicker = inputPicker;
+    root.outputPicker = outputPicker;
+    root.listenInputPicker = listenInputPicker;
+    root.listenOutputPicker = listenOutputPicker;
+    root.listenToggle = listenToggle;
+    root.inputFooter = inputFooter;
+    root.outputFooter = outputFooter;
+    root.listenInputFooter = listenInputFooter;
+    root.listenOutputFooter = listenOutputFooter;
+
+    return root;
+  };
+
+  function createRouteTab({ route, title, subtitle, active = false }) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `microphone-route-tab${active ? " microphone-route-tab--active" : ""}`;
+    button.dataset.route = route;
+    button.innerHTML = `<span>${title}</span><small>${subtitle}</small>`;
+    return button;
   };
 })(window.EasyLips);
