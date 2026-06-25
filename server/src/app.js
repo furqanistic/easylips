@@ -6,6 +6,10 @@ import cookieParser from 'cookie-parser'
 import { env } from './config/env.js'
 import authRoutes from './modules/auth/auth.routes.js'
 import creemRoutes from './modules/payments/creem.routes.js'
+import creditsRoutes from './modules/credits/credits.routes.js'
+import sessionsRoutes from './modules/sessions/sessions.routes.js'
+import { deviceContext } from './modules/devices/devices.middleware.js'
+import { genericIpLimiter } from './middleware/rateLimit.js'
 import { errorHandler, notFound } from './middleware/error.js'
 
 export function createApp() {
@@ -36,10 +40,20 @@ export function createApp() {
   app.use(cookieParser())
   if (env.nodeEnv !== 'production') app.use(morgan('dev'))
 
+  // Generic per-IP flood protection on every route. Tighter limiters apply on
+  // auth/credits/sessions specifically.
+  app.use(genericIpLimiter)
+
+  // Parse the device attestation header on every request and attach
+  // req.device. Harmless on endpoints that don't use it.
+  app.use(deviceContext)
+
   app.get('/health', (_req, res) => res.json({ ok: true, ts: Date.now() }))
 
   app.use('/auth', authRoutes)
   app.use('/payments/creem', creemRoutes)
+  app.use('/credits', creditsRoutes)
+  app.use('/sessions', sessionsRoutes)
 
   app.use(notFound)
   app.use(errorHandler)

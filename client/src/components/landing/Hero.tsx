@@ -479,7 +479,7 @@ function PrimaryCta() {
   return (
     <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.985 }} transition={{ duration: 0.2, ease }}>
       <Link
-        to="/signup"
+        to="/auth"
         className="inline-flex items-center gap-2"
         style={{
           textDecoration: 'none',

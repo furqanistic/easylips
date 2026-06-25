@@ -218,6 +218,20 @@ export async function getUserById(id) {
   return data
 }
 
+// Initialize a user's credit balance row (idempotent) and grant the first daily
+// free allowance. Delegates to the credits module so all balance math lives in
+// one place. Imported lazily to avoid a circular import (credits -> supabase).
+export async function initCredits(userId) {
+  const { ensureBalanceRow } = await import('../credits/credits.service.js')
+  await ensureBalanceRow(userId)
+}
+
+// Revoke a user's free minutes (abuse). Paid minutes are preserved.
+export async function revokeUserFree(userId, reason) {
+  const { revokeFree } = await import('../credits/credits.service.js')
+  await revokeFree(userId, reason)
+}
+
 async function issueTokens(user) {
   const accessToken = signAccessToken(user)
   const refreshToken = signRefreshToken(user)

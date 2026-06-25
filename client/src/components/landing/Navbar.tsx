@@ -142,7 +142,7 @@ export function Navbar() {
           </a>
         ))}
         <Link
-          to="/signup"
+          to="/auth"
           onClick={() => setMenuOpen(false)}
           style={{
             marginTop: '8px',
@@ -195,7 +195,7 @@ function StartTranslatingBtn() {
   const [hovered, setHovered] = useState(false)
   return (
     <Link
-      to="/signup"
+      to="/auth"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{

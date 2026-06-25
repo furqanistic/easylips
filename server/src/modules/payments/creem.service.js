@@ -5,6 +5,19 @@ const CREEM_API_BASE = env.creem.testMode
   ? 'https://test-api.creem.io'
   : 'https://api.creem.io'
 
+// Map a Creem product id (or our plan id) to the number of minutes it grants.
+// This is the ONLY place minutes-per-purchase are defined — the client never
+// decides how many minutes a purchase is worth.
+export function minutesForProduct(productId) {
+  if (!productId) return 0
+  // Match by explicit product id first, then by our internal plan keys.
+  const byKey = Object.entries(env.creem.products).find(
+    ([, id]) => id && id === productId,
+  )
+  if (byKey) return env.credits.planMinutes[byKey[0]] || 0
+  return 0
+}
+
 function isPlaceholder(value, marker) {
   return !value || value.includes('REPLACE_ME') || value === marker
 }
