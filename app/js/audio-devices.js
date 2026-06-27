@@ -3,7 +3,7 @@ window.EasyLips = window.EasyLips || {};
 EasyLips.OUTPUT_DEVICES = [
   {
     id: "easy-lips-virtual",
-    label: "Easy Lips Virtual Mic",
+    label: "OneLingo Virtual Mic",
     icon: "virtualMic",
     virtual: true,
     installed: false,
@@ -49,7 +49,7 @@ EasyLips.getOutputDeviceIcon = function getOutputDeviceIcon(label = "") {
 
 EasyLips.isEasyLipsVirtualDeviceLabel = function isEasyLipsVirtualDeviceLabel(label = "") {
   const normalized = label.toLowerCase();
-  return normalized.includes("easy lips virtual") || normalized.includes("easylips virtual");
+  return normalized.includes("easy lips virtual") || normalized.includes("easylips virtual") || normalized.includes("onelingo virtual");
 };
 
 EasyLips.isVirtualCableOutputLabel = function isVirtualCableOutputLabel(label = "") {
@@ -199,12 +199,12 @@ EasyLips.resolveEasyLipsVirtualOutput = function resolveEasyLipsVirtualOutput(
     return {
       ...base,
       id: installed.id,
-      label: "Easy Lips Virtual Mic",
+    label: "OneLingo Virtual Mic",
       icon: "virtualMic",
       virtual: true,
       installed: true,
       systemLabel: installed.label,
-      meetingMicLabel: cableInput?.label || "Easy Lips Virtual Mic",
+      meetingMicLabel: cableInput?.label || "OneLingo Virtual Mic",
       note: "Installed",
     };
   }

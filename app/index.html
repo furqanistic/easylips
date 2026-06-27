@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Easy Lips</title>
+    <title>OneLingo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/scroll.css" />
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/verify.css" />
@@ -19,13 +20,16 @@
     <link rel="stylesheet" href="css/microphone.css" />
     <link rel="stylesheet" href="css/payment.css" />
     <link rel="stylesheet" href="css/ready.css" />
+    <link rel="stylesheet" href="css/lightfall.css" />
   </head>
   <body>
-    <div class="app-bg" aria-hidden="true"></div>
+    <div class="app-bg" aria-hidden="true">
+      <div id="lightfall-layer" class="lightfall-container"></div>
+    </div>
 
     <div id="titlebar-mount"></div>
 
-    <main class="main">
+    <main class="main app-scroll">
       <div id="stepper-mount"></div>
       <div id="view-mount"></div>
     </main>
@@ -38,6 +42,7 @@
     <script src="js/otp.js"></script>
     <script src="js/language-picker.js"></script>
     <script src="js/setup-config.js"></script>
+    <script src="js/store.js"></script>
     <script src="js/toast.js"></script>
     <script src="js/auth-api.js"></script>
     <script src="js/payment-api.js"></script>
@@ -48,6 +53,7 @@
     <script src="js/prompt.js"></script>
     <script src="js/ready-data.js"></script>
     <script src="js/steps/step-account.js"></script>
+    <script src="js/lightfall.js"></script>
     <script src="js/steps/step-verify.js"></script>
     <script src="js/steps/step-microphone.js"></script>
     <script src="js/steps/step-languages.js"></script>

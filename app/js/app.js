@@ -30,7 +30,7 @@
 
     const state = {
       email: "hello@easylips.ai",
-      verifyReturnView: VIEWS.SIGN_IN_FORM,
+      verifyReturnView: VIEWS.ACCOUNT_OPTIONS,
       microphoneReturnView: VIEWS.ACCOUNT_OPTIONS,
       speakLanguage: "Urdu",
       translateLanguage: "",
@@ -39,9 +39,9 @@
       inputDeviceId: "fallback-external",
       inputDeviceLabel: "External Microphone",
       outputDeviceId: "easy-lips-virtual",
-      outputDeviceLabel: "Easy Lips Virtual Mic",
+      outputDeviceLabel: "OneLingo Virtual Mic",
       outputVirtualReady: false,
-      outputMeetingMicLabel: "Easy Lips Virtual Mic",
+      outputMeetingMicLabel: "OneLingo Virtual Mic",
       listenEnabled: true,
       listenInputDeviceId: "system-audio",
       listenInputDeviceLabel: "Computer audio",
@@ -251,7 +251,7 @@
         return {
           ok: false,
           message:
-            "No virtual mic cable is installed yet. Install a virtual audio cable, restart the app, then choose it as the Easy Lips output.",
+            "No virtual mic cable is installed yet. Install a virtual audio cable, restart the app, then choose it as the OneLingo output.",
         };
       }
 
@@ -583,7 +583,7 @@
           });
 
           if (result?.ok) {
-            setStatus?.("success", "Live translation active. Easy Lips is running in the system tray.");
+            setStatus?.("success", "Live translation active. OneLingo is running in the system tray.");
             window.setTimeout(() => window.electronAPI?.hideToTray?.(), 450);
           }
 
@@ -746,6 +746,13 @@
         syncTrayControls();
         refreshVisibleLanguageState();
         await restartTranslationIfRunning();
+        return;
+      }
+
+      if (command.type === "logout") {
+        App.auth.logout();
+        showView(VIEWS.ACCOUNT_OPTIONS);
+        return;
       }
     }
 
@@ -760,9 +767,9 @@
         updateDownloadToastShown = false;
         App.toast?.({
           title: "Update available",
-          message: event.version
-            ? `EasyLips ${event.version} is ready to download.`
-            : "A new EasyLips update is ready to download.",
+message: event.version
+            ? `OneLingo ${event.version} is ready to download.`
+            : "A new OneLingo update is ready to download.",
           type: "info",
           actions: [
             {
@@ -770,7 +777,7 @@
               onClick: () => {
                 App.toast?.({
                   title: "Downloading update",
-                  message: "EasyLips will let you know when it is ready to install.",
+                  message: "OneLingo will let you know when it is ready to install.",
                   type: "info",
                 });
                 return window.electronAPI?.downloadUpdate?.();
@@ -785,7 +792,7 @@
         updateDownloadToastShown = true;
         App.toast?.({
           title: "Downloading update",
-          message: "You can keep using EasyLips while the update downloads.",
+          message: "You can keep using OneLingo while the update downloads.",
           type: "info",
         });
         return;
@@ -794,7 +801,7 @@
       if (event.type === "downloaded") {
         App.toast?.({
           title: "Update ready",
-          message: "Restart EasyLips to install the latest version.",
+          message: "Restart OneLingo to install the latest version.",
           type: "success",
           actions: [
             {
@@ -808,25 +815,19 @@
 
     const views = {
       [VIEWS.ACCOUNT_OPTIONS]: App.createAccountOptionsView({
-        onEmailClick: () => showView(VIEWS.EMAIL_FORM),
         onGoogleClick: async () => {
           const result = await App.auth.google();
           state.email = result?.user?.email || state.email;
           goToMicrophone({ returnView: VIEWS.ACCOUNT_OPTIONS });
           return result;
         },
-        onSignInClick: () => showView(VIEWS.SIGN_IN_FORM),
+        onSignIn: () => goToMicrophone({ returnView: VIEWS.ACCOUNT_OPTIONS }),
+        onCreateAccount: () => showView(VIEWS.EMAIL_FORM),
+        onForgotPassword: () => goToVerifyEmail({ returnView: VIEWS.ACCOUNT_OPTIONS }),
       }),
       [VIEWS.EMAIL_FORM]: App.createEmailFormView({
         onBack: () => showView(VIEWS.ACCOUNT_OPTIONS),
-        onSignInClick: () => showView(VIEWS.SIGN_IN_FORM),
         onContinue: () => goToMicrophone({ returnView: VIEWS.EMAIL_FORM }),
-      }),
-      [VIEWS.SIGN_IN_FORM]: App.createSignInFormView({
-        onBack: () => showView(VIEWS.ACCOUNT_OPTIONS),
-        onSignUpClick: () => showView(VIEWS.EMAIL_FORM),
-        onForgotPassword: () => goToVerifyEmail({ returnView: VIEWS.SIGN_IN_FORM }),
-        onSignIn: () => goToMicrophone({ returnView: VIEWS.SIGN_IN_FORM }),
       }),
       [VIEWS.VERIFY_EMAIL]: App.createVerifyEmailView({
         email: state.email,
@@ -839,6 +840,18 @@
     };
 
     let activeView = null;
+
+    /* ---- Dither background ---- */
+    let dither = null;
+
+    function startDither() {
+      if (dither) return;
+      var container = document.getElementById("lightfall-layer");
+      if (!container) return;
+      container.classList.add("lightfall-container--active");
+      dither = new App.Dither(App.Dither.DARK_THEME);
+      dither.mount(container);
+    }
 
     function refreshVerifyEmailView() {
       const nextView = App.createVerifyEmailView({
@@ -927,7 +940,16 @@
       activeView = name;
     }
 
-    showView(VIEWS.ACCOUNT_OPTIONS);
+    startDither();
+
+    /* Restore session if still valid (1-year token) */
+    if (App.auth.isAuthenticated()) {
+      const user = App.auth.getUser();
+      if (user?.email) state.email = user.email;
+      showView(VIEWS.MICROPHONE);
+    } else {
+      showView(VIEWS.ACCOUNT_OPTIONS);
+    }
   }
 
   if (document.readyState === "loading") {

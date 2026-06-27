@@ -256,12 +256,14 @@ window.EasyLips = window.EasyLips || {};
 
     const speakTab = createRouteTab({
       route: "speak",
+      icon: icons.microphone,
       title: "Speak to client",
       subtitle: "Mic to Meet",
       active: true,
     });
     const listenTab = createRouteTab({
       route: "listen",
+      icon: icons.headphones,
       title: "Hear client",
       subtitle: "Meet to headphones",
     });
@@ -386,12 +388,18 @@ window.EasyLips = window.EasyLips || {};
     return root;
   };
 
-  function createRouteTab({ route, title, subtitle, active = false }) {
+  function createRouteTab({ route, icon, title, subtitle, active = false }) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `microphone-route-tab${active ? " microphone-route-tab--active" : ""}`;
     button.dataset.route = route;
-    button.innerHTML = `<span>${title}</span><small>${subtitle}</small>`;
+    button.innerHTML = `
+      <span class="microphone-route-tab-icon">${icon || ""}</span>
+      <span class="microphone-route-tab-text">
+        <span class="microphone-route-tab-title">${title}</span>
+        <small class="microphone-route-tab-subtitle">${subtitle}</small>
+      </span>
+    `;
     return button;
   };
 })(window.EasyLips);

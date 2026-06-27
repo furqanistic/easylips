@@ -2,8 +2,8 @@
   "name": "easylips-app",
   "private": true,
   "version": "0.1.0",
-  "description": "EasyLips desktop shell",
-  "author": "EasyLips",
+  "description": "OneLingo desktop shell",
+  "author": "OneLingo",
   "main": "main.cjs",
   "scripts": {
     "start": "nodemon",
@@ -18,8 +18,8 @@
     "nodemon": "^3.1.14"
   },
   "build": {
-    "appId": "com.easylips.app",
-    "productName": "EasyLips",
+    "appId": "com.onelingo.app",
+    "productName": "OneLingo",
     "directories": {
       "buildResources": "build",
       "output": "release"
@@ -64,7 +64,7 @@
       "uninstallerSidebar": "build/uninstallerSidebar.bmp",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "EasyLips"
+      "shortcutName": "OneLingo"
     },
     "mac": {
       "icon": "build/icon.png",
@@ -79,9 +79,9 @@
         }
       ],
       "extendInfo": {
-        "NSMicrophoneUsageDescription": "EasyLips needs microphone access to listen for speech before translating it.",
-        "NSSpeechRecognitionUsageDescription": "EasyLips may use speech recognition features while preparing live translation.",
-        "NSCameraUsageDescription": "EasyLips requests media permissions through Electron for meeting compatibility."
+        "NSMicrophoneUsageDescription": "OneLingo needs microphone access to listen for speech before translating it.",
+        "NSSpeechRecognitionUsageDescription": "OneLingo may use speech recognition features while preparing live translation.",
+        "NSCameraUsageDescription": "OneLingo requests media permissions through Electron for meeting compatibility."
       }
     },
     "linux": {

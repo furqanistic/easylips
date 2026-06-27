@@ -16,7 +16,7 @@ window.EasyLips = window.EasyLips || {};
   App.createReadyView = function createReadyView({
     summaryRows = [],
     outputVirtualReady = true,
-    outputMeetingMicLabel = "Easy Lips Virtual Mic",
+    outputMeetingMicLabel = "OneLingo Virtual Mic",
     listenEnabled = true,
     listenOutputDeviceLabel = "Default speakers",
     onBack,
@@ -91,7 +91,7 @@ window.EasyLips = window.EasyLips || {};
 
   App.showTaskbarStartPrompt = function showTaskbarStartPrompt({ onConfirm } = {}) {
     App.showPrompt({
-      title: "Easy Lips is running",
+      title: "OneLingo is running",
       message:
         "The app will run in your taskbar. You can switch your output mic and language from there anytime.",
       confirmLabel: "Got it",

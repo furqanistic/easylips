@@ -2,7 +2,6 @@ window.EasyLips = window.EasyLips || {};
 
 (function (App) {
   const API_URL = App.API_URL || "http://localhost:8000";
-  const ACCESS_TOKEN_KEY = "easylips_access_token";
   const TEST_LOGIN_EMAIL = "test@test.com";
   const TEST_LOGIN_PASSWORD = "test";
 
@@ -13,14 +12,6 @@ window.EasyLips = window.EasyLips || {};
       this.status = status;
       this.details = details;
     }
-  }
-
-  function setAccessToken(token) {
-    window.localStorage.setItem(ACCESS_TOKEN_KEY, token);
-  }
-
-  function clearAccessToken() {
-    window.localStorage.removeItem(ACCESS_TOKEN_KEY);
   }
 
   async function parseResponse(response) {
@@ -50,6 +41,11 @@ window.EasyLips = window.EasyLips || {};
     return data;
   }
 
+  function storeSession(data) {
+    if (!data?.accessToken) return;
+    App.store.setSession(data.accessToken, data.user || null);
+  }
+
   async function authRequest(path, body) {
     let response;
 
@@ -69,9 +65,7 @@ window.EasyLips = window.EasyLips || {};
     }
 
     const data = await parseResponse(response);
-    if (data?.accessToken) {
-      setAccessToken(data.accessToken);
-    }
+    storeSession(data);
     return data;
   }
 
@@ -85,35 +79,53 @@ window.EasyLips = window.EasyLips || {};
       },
     };
 
-    setAccessToken(data.accessToken);
+    storeSession(data);
     return Promise.resolve(data);
   }
 
   App.auth = {
     AuthError,
-    clearAccessToken,
-    async google() {
+
+    isAuthenticated() {
+      return App.store.isAuthenticated();
+    },
+
+    getUser() {
+      return App.store.getUser();
+    },
+
+    getAuthToken() {
+      return App.store.getAuthToken();
+    },
+
+    logout() {
+      App.store.clearSession();
+      App.store.clearOnboarding();
+    },
+
+    google() {
       if (!window.electronAPI?.startGoogleAuth) {
         throw new AuthError("Google sign-in is only available in the desktop app.");
       }
 
-      const oauth = await window.electronAPI.startGoogleAuth({
-        clientId: App.GOOGLE_CLIENT_ID,
-      });
+      return window.electronAPI
+        .startGoogleAuth({ clientId: App.GOOGLE_CLIENT_ID })
+        .then(function (oauth) {
+          if (!oauth?.ok) {
+            throw new AuthError(oauth?.message || "Google sign-in was cancelled.", {
+              status: 0,
+            });
+          }
 
-      if (!oauth?.ok) {
-        throw new AuthError(oauth?.message || "Google sign-in was cancelled.", {
-          status: 0,
+          return authRequest("/auth/google", {
+            code: oauth.code,
+            codeVerifier: oauth.codeVerifier,
+            redirectUri: oauth.redirectUri,
+            nonce: oauth.nonce,
+          });
         });
-      }
-
-      return authRequest("/auth/google", {
-        code: oauth.code,
-        codeVerifier: oauth.codeVerifier,
-        redirectUri: oauth.redirectUri,
-        nonce: oauth.nonce,
-      });
     },
+
     login({ email, password }) {
       if (
         String(email || "").trim().toLowerCase() === TEST_LOGIN_EMAIL &&
@@ -124,6 +136,7 @@ window.EasyLips = window.EasyLips || {};
 
       return authRequest("/auth/login", { email, password });
     },
+
     signup({ email, password, name }) {
       return authRequest("/auth/signup", { email, password, name });
     },

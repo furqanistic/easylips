@@ -28,7 +28,7 @@ let isQuitting = false;
 const TOGGLE_TRANSLATION_SHORTCUT = "CommandOrControl+Alt+T";
 const UPDATE_CHECK_DELAY_MS = 8000;
 const DEFAULT_WINDOW_WIDTH = 1280;
-const DEFAULT_WINDOW_HEIGHT = 800;
+const DEFAULT_WINDOW_HEIGHT = 860;
 const MIN_WINDOW_WIDTH = 960;
 const MIN_WINDOW_HEIGHT = 640;
 const updateState = {
@@ -112,7 +112,7 @@ function startGoogleOAuth({ clientId }) {
     return Promise.resolve({
       ok: false,
       code: "missing_client_id",
-      message: "Replace EasyLips.GOOGLE_CLIENT_ID in app/js/setup-config.js first.",
+      message: "Replace OneLingo.GOOGLE_CLIENT_ID in app/js/setup-config.js first.",
     });
   }
 
@@ -147,7 +147,7 @@ function startGoogleOAuth({ clientId }) {
 
       if (error) {
         res.writeHead(400, { "Content-Type": "text/html; charset=utf-8" });
-        res.end(createGoogleCallbackHtml(false, "You can close this tab and return to Easy Lips."));
+        res.end(createGoogleCallbackHtml(false, "You can close this tab and return to OneLingo."));
         finish({ ok: false, code: "google_error", message: error });
         return;
       }
@@ -161,7 +161,7 @@ function startGoogleOAuth({ clientId }) {
 
       const redirectUri = `http://127.0.0.1:${server.address().port}/oauth/google/callback`;
       res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-      res.end(createGoogleCallbackHtml(true, "Return to Easy Lips to continue setup."));
+      res.end(createGoogleCallbackHtml(true, "Return to OneLingo to continue setup."));
       finish({ ok: true, code, codeVerifier, redirectUri, nonce });
     });
 
@@ -252,7 +252,7 @@ function updateTrayMenu() {
   const remainingMinutes = Math.max(0, Math.ceil((trayState.remainingSeconds || 0) / 60));
 
   tray.setContextMenu(Menu.buildFromTemplate([
-    { label: "Show Easy Lips", click: showMainWindow },
+    { label: "Show OneLingo", click: showMainWindow },
     { label: `${remainingMinutes} minutes remaining`, enabled: false },
     {
       label: `Toggle translation (${process.platform === "darwin" ? "Cmd" : "Ctrl"}+Alt+T)`,
@@ -321,7 +321,11 @@ function updateTrayMenu() {
     },
     { type: "separator" },
     {
-      label: "Quit Easy Lips",
+      label: "Sign out",
+      click: () => sendTrayCommand({ type: "logout" }),
+    },
+    {
+      label: "Quit OneLingo",
       click: () => {
         isQuitting = true;
         app.quit();
@@ -333,7 +337,7 @@ function updateTrayMenu() {
 function ensureTray() {
   if (!tray) {
     tray = new Tray(createTrayImage());
-    tray.setToolTip("Easy Lips");
+    tray.setToolTip("OneLingo");
     tray.on("click", showMainWindow);
     tray.on("double-click", showMainWindow);
   }
@@ -1004,7 +1008,7 @@ function createWindow() {
     backgroundColor: "#000000",
     autoHideMenuBar: true,
     frame: false,
-    title: "Easy Lips",
+    title: "OneLingo",
     show: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.cjs"),

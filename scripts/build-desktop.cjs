@@ -189,7 +189,7 @@ function createWindowsInstallerArtwork(sourcePath) {
     "$g.FillRectangle($panel, 0, 0, 150, 57)",
     "$g.FillRectangle($red, 0, 53, 150, 4)",
     "Draw-Logo $g $logo 10 11 35",
-    "$g.DrawString('EasyLips', $fontLarge, $white, 52, 11)",
+    "$g.DrawString('OneLingo', $fontLarge, $white, 52, 11)",
     "$g.DrawString('Desktop setup', $fontSmall, $muted, 54, 34)",
     "$header.Save($headerPath, [System.Drawing.Imaging.ImageFormat]::Bmp)",
     "$g.Dispose(); $header.Dispose()",
@@ -205,7 +205,7 @@ function createWindowsInstallerArtwork(sourcePath) {
     "  $graphics.DrawEllipse($redPen, 118, -28, 86, 86)",
     "  $graphics.DrawEllipse((New-Pen 255 255 255 1), -42, 234, 118, 118)",
     "  Draw-Logo $graphics $logo 43 38 78",
-    "  $graphics.DrawString('EasyLips', $fontLarge, $white, 26, 142)",
+    "  $graphics.DrawString('OneLingo', $fontLarge, $white, 26, 142)",
     "  $graphics.DrawString($label, $fontSmall, $muted, 28, 168)",
     "  $graphics.FillRectangle($red, 28, 204, 54, 3)",
     "  $bitmap.Save($destination, [System.Drawing.Imaging.ImageFormat]::Bmp)",
@@ -268,6 +268,6 @@ function quoteWindowsArg(value) {
 }
 
 function fail(message) {
-  console.error(`\nEasyLips build failed: ${message}\n`);
+  console.error(`\nOneLingo build failed: ${message}\n`);
   process.exit(1);
 }

@@ -12,7 +12,6 @@ const steps = [
     title: 'Join your call',
     description:
       'Start Google Meet, Zoom, or Teams as usual. EasyLips runs in the background — no extra apps, no setup.',
-    tags: ['ONE-CLICK', 'BACKGROUND', 'ZERO LATENCY IMPACT'],
     image: '/landing/how-step-join.png',
     alt: 'Video meeting interface with EasyLips connected',
   },
@@ -21,7 +20,6 @@ const steps = [
     title: 'Speak naturally',
     description:
       'Talk in your language. Our engine detects it, captures your voice, and streams it through the AI pipeline.',
-    tags: ['AUTO DETECT', 'NOISE CANCEL', 'MULTI-SPEAKER'],
     image: '/landing/how-step-speak.png',
     alt: 'Active speaker with waveform and language detection',
   },
@@ -30,7 +28,6 @@ const steps = [
     title: 'They hear you',
     description:
       'Your audience hears a natural-sounding translation — with your tone, your pace, your personality.',
-    tags: ['VOICE CLONE', 'NATURAL PROSODY', '70+ LANGUAGES'],
     image: '/landing/how-step-hear.png',
     alt: 'Live translation panel with translated speech output',
   },
@@ -66,7 +63,7 @@ export function HowItWorks() {
           <h2
             style={{
               fontFamily: "'Manrope', sans-serif",
-              fontSize: 'clamp(32px, 4.5vw, 54px)',
+              fontSize: 'clamp(36px, 5vw, 58px)',
               lineHeight: 1.06,
               letterSpacing: '-0.045em',
               fontWeight: 700,
@@ -103,9 +100,9 @@ function StepRow({ step, reversed }: { step: Step; reversed: boolean }) {
       transition={{ duration: 0.7, ease, delay: 0.05 }}
       className={`flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-14 ${reversed ? 'lg:flex-row-reverse' : ''}`}
     >
-      {/* MacBook Mockup */}
+      {/* Step image */}
       <div className="w-full max-w-[680px] flex-shrink-0">
-        <MacBookMockup image={step.image} alt={step.alt} />
+        <StepImage image={step.image} alt={step.alt} />
       </div>
 
       {/* Text Content */}
@@ -117,7 +114,7 @@ function StepRow({ step, reversed }: { step: Step; reversed: boolean }) {
           <span
             style={{
               fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 'clamp(40px, 5vw, 64px)',
+              fontSize: 'clamp(44px, 5.5vw, 72px)',
               fontWeight: 700,
               color: RED,
               lineHeight: 1,
@@ -139,7 +136,7 @@ function StepRow({ step, reversed }: { step: Step; reversed: boolean }) {
         <h3
           style={{
             fontFamily: "'Manrope', sans-serif",
-            fontSize: 'clamp(24px, 2.8vw, 34px)',
+            fontSize: 'clamp(28px, 3.2vw, 40px)',
             fontWeight: 700,
             color: '#F4F4F5',
             letterSpacing: '-0.035em',
@@ -151,131 +148,30 @@ function StepRow({ step, reversed }: { step: Step; reversed: boolean }) {
 
         <p
           style={{
-            marginTop: 14,
-            fontSize: 'clamp(15px, 1.5vw, 17px)',
-            lineHeight: 1.6,
-            color: 'rgba(255,255,255,0.5)',
-            maxWidth: 440,
+            marginTop: 16,
+            fontSize: 'clamp(17px, 1.8vw, 20px)',
+            lineHeight: 1.65,
+            color: 'rgba(255,255,255,0.55)',
+            maxWidth: 480,
           }}
         >
           {step.description}
         </p>
-
-        <div className="mt-6 flex flex-wrap justify-center gap-2 lg:justify-start">
-          {step.tags.map((tag) => (
-            <span
-              key={tag}
-              style={{
-                padding: '5px 12px',
-                borderRadius: '7px',
-                border: '1px solid rgba(234,10,26,0.18)',
-                background: 'rgba(234,10,26,0.05)',
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: '10px',
-                fontWeight: 600,
-                color: RED_BRIGHT,
-                letterSpacing: '0.08em',
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
       </div>
     </motion.article>
   )
 }
 
-function MacBookMockup({ image, alt }: { image: string; alt: string }) {
+function StepImage({ image, alt }: { image: string; alt: string }) {
   return (
-    <div className="group relative">
-      {/* Screen glow */}
-      <div
-        className="absolute -inset-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(ellipse at 50% 0%, ${RED}12, transparent 70%)`,
-          filter: 'blur(20px)',
-        }}
+    <div className="group relative overflow-hidden rounded-2xl">
+      <img
+        src={image}
+        alt={alt}
+        loading="lazy"
+        className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+        style={{ aspectRatio: '16/10' }}
       />
-
-      {/* MacBook body */}
-      <div className="relative">
-        {/* Screen bezel */}
-        <div
-          style={{
-            borderRadius: '12px 12px 0 0',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderBottom: 'none',
-            background: 'linear-gradient(180deg, rgba(20,20,24,0.95), rgba(12,12,16,0.95))',
-            padding: '10px 10px 0 10px',
-          }}
-        >
-          {/* Camera notch */}
-          <div className="mb-3 flex justify-center">
-            <div
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: 999,
-                background: 'rgba(255,255,255,0.08)',
-                border: '1px solid rgba(255,255,255,0.06)',
-              }}
-            />
-          </div>
-
-          {/* Screen content */}
-          <div
-            className="overflow-hidden"
-            style={{
-              borderRadius: '4px 4px 0 0',
-              border: '1px solid rgba(255,255,255,0.06)',
-              background: '#08080c',
-            }}
-          >
-            <img
-              src={image}
-              alt={alt}
-              loading="lazy"
-              className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-              style={{ aspectRatio: '16/10' }}
-            />
-          </div>
-        </div>
-
-        {/* Bottom bezel + hinge */}
-        <div className="relative">
-          {/* Hinge line */}
-          <div
-            style={{
-              height: 2,
-              background: 'linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.1), rgba(255,255,255,0.04))',
-            }}
-          />
-
-          {/* Bottom chassis */}
-          <div
-            style={{
-              height: 10,
-              borderRadius: '0 0 12px 12px',
-              background: 'linear-gradient(180deg, rgba(18,18,22,0.95), rgba(14,14,18,0.95))',
-              border: '1px solid rgba(255,255,255,0.06)',
-              borderTop: 'none',
-            }}
-          />
-
-          {/* Notch in bottom chassis */}
-          <div
-            className="absolute left-1/2 -translate-x-1/2"
-            style={{
-              bottom: 4,
-              width: 80,
-              height: 3,
-              borderRadius: 999,
-              background: 'rgba(255,255,255,0.06)',
-            }}
-          />
-        </div>
-      </div>
     </div>
   )
 }

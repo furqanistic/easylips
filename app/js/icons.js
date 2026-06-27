@@ -1,13 +1,7 @@
 window.EasyLips = window.EasyLips || {};
 
 EasyLips.icons = {
-  logo: `<svg class="logo-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <rect x="1" y="9" width="2.5" height="4" rx="1.25" fill="#dc2626"/>
-    <rect x="5" y="6" width="2.5" height="10" rx="1.25" fill="#dc2626"/>
-    <rect x="9" y="4" width="2.5" height="14" rx="1.25" fill="#dc2626"/>
-    <rect x="13" y="7" width="2.5" height="8" rx="1.25" fill="#dc2626"/>
-    <rect x="17" y="5" width="2.5" height="12" rx="1.25" fill="#dc2626"/>
-  </svg>`,
+  logo: `<img src="assets/home/logoicon.png" class="logo-icon" alt="OneLingo" />`,
 
   minimize: `<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`,
 

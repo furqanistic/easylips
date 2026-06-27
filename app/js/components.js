@@ -11,7 +11,7 @@ window.EasyLips = window.EasyLips || {};
     el.innerHTML = `
       <div class="logo">
         ${icons.logo}
-        <span class="logo-text">Easy Lips</span>
+        <span class="logo-text">OneLingo</span>
       </div>
       <div class="window-controls">
         <button class="window-btn minimize" type="button" aria-label="Minimize">${icons.minimize}</button>
