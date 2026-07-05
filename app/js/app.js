@@ -5,6 +5,7 @@
     SIGN_IN_FORM: "sign-in-form",
     VERIFY_EMAIL: "verify-email",
     MICROPHONE: "microphone",
+    PLAYGROUND: "playground",
     LANGUAGES: "languages",
     PAYMENT: "payment",
     READY: "ready",
@@ -17,6 +18,7 @@
     [VIEWS.SIGN_IN_FORM]: EasyLips.SETUP_STEPS.ACCOUNT,
     [VIEWS.VERIFY_EMAIL]: EasyLips.SETUP_STEPS.ACCOUNT,
     [VIEWS.MICROPHONE]: EasyLips.SETUP_STEPS.MICROPHONE,
+    [VIEWS.PLAYGROUND]: EasyLips.SETUP_STEPS.MICROPHONE,
     [VIEWS.LANGUAGES]: EasyLips.SETUP_STEPS.LANGUAGES,
     [VIEWS.PAYMENT]: EasyLips.SETUP_STEPS.PAYMENT,
     [VIEWS.READY]: EasyLips.SETUP_STEPS.READY,
@@ -165,7 +167,6 @@
         translateLanguage: state.translateLanguage,
         speakAutoDetect: state.speakAutoDetect,
         inputDeviceId: state.inputDeviceId,
-        testOutputDeviceId: state.testOutputDeviceId,
         onBack: () => showView(VIEWS.MICROPHONE),
         onContinue: () => goToPayment(),
         onSpeakChange: (language) => {
@@ -190,21 +191,9 @@
         },
         onDetectLanguage: startGeminiLanguageDetection,
         onStopDetection: stopGeminiLanguageDetection,
-        onTestInputChange: (device) => {
-          state.inputDeviceId = device.id;
-          state.inputDeviceLabel = device.label;
-          syncTrayControls();
-        },
-        onTestOutputChange: (device) => {
-          state.testOutputDeviceId = device.id;
-          state.testOutputDeviceLabel = device.label;
-        },
-        onStartTest: startGeminiTestTranslation,
-        onStopTest: stopGeminiLiveTranslation,
       });
 
       views[VIEWS.LANGUAGES] = nextView;
-      livePanel = nextView.querySelector(".gemini-live-panel");
       return nextView;
     }
 
@@ -524,6 +513,7 @@
         listenEnabled: state.listenEnabled,
         onBack: () => showView(state.microphoneReturnView),
         onContinue: () => goToLanguages(),
+        onOpenPlayground: () => showView(VIEWS.PLAYGROUND),
         onInputChange: (device) => {
           state.inputDeviceId = device.id;
           state.inputDeviceLabel = device.label;
@@ -554,6 +544,46 @@
       });
 
       views[VIEWS.MICROPHONE] = nextView;
+      return nextView;
+    }
+
+    function refreshPlaygroundView() {
+      const nextView = App.createPlaygroundView({
+        speakLanguage: state.speakLanguage,
+        translateLanguage: state.translateLanguage,
+        speakAutoDetect: state.speakAutoDetect,
+        inputDeviceId: state.inputDeviceId,
+        testOutputDeviceId: state.testOutputDeviceId,
+        onBack: () => showView(VIEWS.MICROPHONE),
+        onSpeakChange: (language) => {
+          state.speakLanguage = language;
+          syncTrayControls();
+        },
+        onTranslateChange: (language) => {
+          state.translateLanguage = language;
+          syncTrayControls();
+        },
+        onSpeakAutoDetectChange: (enabled) => {
+          state.speakAutoDetect = enabled;
+          if (!enabled) {
+            state.detectedSpeakLanguage = "";
+          }
+          syncTrayControls();
+        },
+        onTestInputChange: (device) => {
+          state.inputDeviceId = device.id;
+          state.inputDeviceLabel = device.label;
+          syncTrayControls();
+        },
+        onTestOutputChange: (device) => {
+          state.testOutputDeviceId = device.id;
+          state.testOutputDeviceLabel = device.label;
+        },
+        onStartTest: startGeminiTestTranslation,
+        onStopTest: stopGeminiLiveTranslation,
+      });
+
+      views[VIEWS.PLAYGROUND] = nextView;
       return nextView;
     }
 
@@ -869,6 +899,7 @@ message: event.version
 
     function updateMainLayout(viewName) {
       mainEl?.classList.toggle("main--languages", viewName === VIEWS.LANGUAGES);
+      mainEl?.classList.toggle("main--playground", viewName === VIEWS.PLAYGROUND);
       mainEl?.classList.toggle("main--microphone", viewName === VIEWS.MICROPHONE);
       mainEl?.classList.toggle("main--payment", viewName === VIEWS.PAYMENT);
       mainEl?.classList.toggle("main--ready", viewName === VIEWS.READY);
@@ -886,12 +917,20 @@ message: event.version
         stopGeminiLiveTranslation();
       }
 
+      if (activeView === VIEWS.PLAYGROUND && name !== VIEWS.PLAYGROUND) {
+        stopGeminiLiveTranslation();
+      }
+
       if (name === VIEWS.VERIFY_EMAIL) {
         views[VIEWS.VERIFY_EMAIL] = refreshVerifyEmailView();
       }
 
       if (name === VIEWS.LANGUAGES) {
         views[VIEWS.LANGUAGES] = refreshLanguagesView();
+      }
+
+      if (name === VIEWS.PLAYGROUND) {
+        views[VIEWS.PLAYGROUND] = refreshPlaygroundView();
       }
 
       if (name === VIEWS.MICROPHONE) {

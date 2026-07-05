@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 
-const AUTH_EMAIL_KEY = 'easylips_mock_auth_email'
+const AUTH_EMAIL_KEY = 'onelingo_mock_auth_email'
 
 export function LoginPage() {
   const navigate = useNavigate()
@@ -31,11 +31,8 @@ export function LoginPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-5 py-8 text-foreground">
       <section className="w-full max-w-[420px]">
-        <Link to="/" className="mb-10 flex w-fit items-center gap-3 no-underline">
-          <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-sm font-black text-background">
-            EL
-          </span>
-          <span className="text-base font-semibold text-white">EasyLips</span>
+        <Link to="/" className="mb-10 flex w-fit items-center no-underline">
+          <img src="/assets/logoicon.png" alt="OneLingo" className="h-11 w-auto object-contain" />
         </Link>
 
         <div className="mb-8">

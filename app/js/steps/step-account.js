@@ -58,7 +58,7 @@ window.EasyLips = window.EasyLips || {};
     view.dataset.view = "account-options";
 
     const content = document.createElement("div");
-    content.className = "content";
+    content.className = "content content--account";
 
     content.appendChild(
       App.createStepHeader({
@@ -67,11 +67,6 @@ window.EasyLips = window.EasyLips || {};
         subheading: "Sign in or create an account to continue.",
       }),
     );
-
-    const logoEl = document.createElement("div");
-    logoEl.className = "card-logo";
-    logoEl.innerHTML = '<img src="assets/home/logoicon.png" alt="OneLingo" />';
-    content.appendChild(logoEl);
 
     const googleButton = App.createAuthButton({
       label: "Continue with Google",
@@ -246,7 +241,7 @@ window.EasyLips = window.EasyLips || {};
     view.dataset.view = "email-form";
 
     const content = document.createElement("div");
-    content.className = "content";
+    content.className = "content content--account";
 
     content.appendChild(
       App.createStepHeader({
@@ -387,7 +382,7 @@ window.EasyLips = window.EasyLips || {};
     view.dataset.view = "sign-in-form";
 
     const content = document.createElement("div");
-    content.className = "content";
+    content.className = "content content--account";
 
     content.appendChild(
       App.createStepHeader({

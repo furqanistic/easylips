@@ -63,7 +63,7 @@ export function useSignup() {
       queryClient.setQueryData<AuthUser>(authKeys.currentUser, user)
       toast({
         title: 'Account created',
-        description: 'Your EasyLips workspace is ready.',
+        description: 'Your OneLingo workspace is ready.',
         variant: 'success',
       })
       navigate('/welcome', { replace: true })

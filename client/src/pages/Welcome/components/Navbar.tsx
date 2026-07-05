@@ -36,27 +36,12 @@ export function Navbar() {
             border: '1px solid rgba(255,255,255,0.08)',
           }}
         >
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0, textDecoration: 'none' }}>
-            <span
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '28px',
-                height: '28px',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #9855ff 0%, #b372cf 100%)',
-                boxShadow: '0 0 16px rgba(152,85,255,0.35)',
-              }}
-            >
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8.5C3 5.46 5.46 3 8.5 3S14 5.46 14 8.5 11.54 14 8.5 14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="8.5" cy="8.5" r="1.5" fill="white" />
-              </svg>
-            </span>
-            <span style={{ color: '#ffffff', fontWeight: 600, fontSize: '14px', letterSpacing: '-0.02em' }}>
-              EasyLips
-            </span>
+          <a href="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none' }}>
+            <img
+              src="/assets/logoicon.png"
+              alt="OneLingo"
+              style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
+            />
           </a>
 
           <ul style={{ display: 'flex', alignItems: 'center', gap: '28px', listStyle: 'none', margin: 0, padding: 0 }}

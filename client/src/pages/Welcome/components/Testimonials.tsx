@@ -5,11 +5,11 @@ const ease = [0.32, 0.72, 0, 1] as const
 
 const testimonials = [
   {
-    quote: 'EasyLips transformed our international client calls. We close deals in 5 languages now without hiring a single interpreter. The voice quality is indistinguishable from native speech.',
+    quote: 'OneLingo transformed our international client calls. We close deals in 5 languages now without hiring a single interpreter. The voice quality is indistinguishable from native speech.',
     name: 'Sarah Chen', role: 'VP of Sales', company: 'GlobalTech Inc.', avatar: 'SC', color: '#56c2ff', stars: 5,
   },
   {
-    quote: 'I stream to audiences in Japan, Brazil, and Germany simultaneously. My subscriber count tripled in 3 months. EasyLips didn\'t just break the language barrier — it dissolved it.',
+    quote: 'I stream to audiences in Japan, Brazil, and Germany simultaneously. My subscriber count tripled in 3 months. OneLingo didn\'t just break the language barrier — it dissolved it.',
     name: 'Marcus Osei', role: 'Content Creator', company: '2.1M subscribers', avatar: 'MO', color: '#a78bfa', stars: 5,
   },
   {
@@ -17,11 +17,11 @@ const testimonials = [
     name: 'Dr. Priya Nair', role: 'Medical Education Director', company: 'HealthBridge', avatar: 'PN', color: '#59d499', stars: 5,
   },
   {
-    quote: '68ms latency feels like magic. My Mandarin clients think I\'m speaking their language. This is the future of global business, and EasyLips is years ahead.',
+    quote: '68ms latency feels like magic. My Mandarin clients think I\'m speaking their language. This is the future of global business, and OneLingo is years ahead.',
     name: 'Alex Petrov', role: 'Founder & CEO', company: 'TradeLink', avatar: 'AP', color: '#ff6363', stars: 5,
   },
   {
-    quote: 'Launched our app in 12 markets without a localization team. Customer support in 12 languages, handled by 3 agents. EasyLips is our secret weapon.',
+    quote: 'Launched our app in 12 markets without a localization team. Customer support in 12 languages, handled by 3 agents. OneLingo is our secret weapon.',
     name: 'Lucia Torres', role: 'Head of Customer Success', company: 'AppVault', avatar: 'LT', color: '#56c2ff', stars: 5,
   },
   {

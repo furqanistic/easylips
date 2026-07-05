@@ -42,11 +42,11 @@ export function KitFooter() {
       <div className="mx-auto max-w-[1195px] border-x border-t border-white/15 px-4 py-6 sm:px-8 sm:py-8 md:px-[45px] md:py-[41px]">
         <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:flex-wrap lg:items-start lg:justify-between">
           <div className="flex items-center justify-between gap-4 sm:block">
-            <div className="h-[28px] w-[120px] sm:h-[38px] sm:w-[138px]">
+            <div className="h-[36px] sm:h-[48px]">
               <img
                 src={KIT_ASSETS.logokit}
-                alt="EasyLips"
-                className="h-full w-full object-contain object-left"
+                alt="OneLingo"
+                className="h-full w-auto object-contain object-left"
               />
             </div>
 
@@ -84,7 +84,7 @@ export function KitFooter() {
       </div>
 
       <div className="mx-auto hidden max-w-[1200px] items-center justify-center gap-6 border-b border-white/15 px-6 py-[13px] sm:flex sm:gap-[74px]">
-        <img src={KIT_ASSETS.logo} alt="EasyLips" className="h-[38px] w-[38px] shrink-0 object-cover" />
+        <img src={KIT_ASSETS.logo} alt="OneLingo" className="h-[44px] w-auto shrink-0 object-contain" />
 
         <nav className="flex flex-wrap items-center justify-center gap-[30px] rounded-[60px] border border-white/15 px-10 py-2">
           {NAV_LINKS.map((item) => (
@@ -105,8 +105,8 @@ export function KitFooter() {
       </div>
 
       <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 border-b border-white/15 px-4 py-3 sm:hidden">
-        <img src={KIT_ASSETS.logo} alt="EasyLips" className="h-7 w-7 shrink-0" />
-        <p className="text-[11px] text-white/40">© 2026 EasyLips</p>
+        <img src={KIT_ASSETS.logo} alt="OneLingo" className="h-9 w-auto shrink-0 object-contain" />
+        <p className="text-[11px] text-white/40">© 2026 OneLingo</p>
         <WaitlistButton variant="purple" size="sm" />
       </div>
     </footer>

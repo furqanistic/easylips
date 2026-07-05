@@ -750,6 +750,56 @@
   min-width: 0;
 }
 
+/* ── Test playground (offshoot of the Microphone step) ── */
+.main.main--playground {
+  overflow-y: auto;
+  padding-bottom: 32px;
+}
+
+.main.main--playground #view-mount {
+  flex: 0 0 auto;
+  min-height: 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.main.main--playground .view {
+  flex: 0 0 auto;
+}
+
+.main.main--playground .stepper {
+  margin-top: 8px;
+  margin-bottom: 14px;
+}
+
+.main.main--playground .content--languages {
+  flex: 0 0 auto;
+  min-height: 0;
+}
+
+.playground-body {
+  flex: 0 0 auto;
+  min-height: 0;
+}
+
+.playground-body .language-panels {
+  flex: 0 0 auto;
+  min-height: 0;
+}
+
+.playground-body .language-picker {
+  height: auto;
+}
+
+.playground-body .language-picker-list {
+  max-height: 180px;
+}
+
+.playground-body .gemini-test-workspace {
+  flex: 0 0 auto;
+  min-height: 0;
+}
+
 .gemini-test-devices {
   width: 100%;
 }

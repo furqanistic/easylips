@@ -215,15 +215,60 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.card-logo {
-  display: flex;
-  justify-content: center;
-  margin: 16px 0 20px;
+/* ── Compact account step ── */
+.content--account {
+  max-width: 380px;
 }
 
-.card-logo img {
-  width: 160px;
-  height: auto;
+.content--account .step-tag {
+  margin-bottom: 10px;
+}
+
+.content--account .heading {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.content--account .subheading {
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+.content--account .card {
+  padding: 18px;
+}
+
+.content--account .divider {
+  margin: 14px 0;
+}
+
+.content--account .field + .field {
+  margin-top: 10px;
+}
+
+.content--account .field-input {
+  height: 46px;
+  padding: 18px 14px 6px;
+  font-size: 13.5px;
+}
+
+.content--account .form-forgot-link {
+  margin-top: 10px;
+}
+
+.content--account .sign-in-text {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.content--account .primary-btn--inline {
+  margin-top: 14px;
+  height: 46px;
+  font-size: 14px;
+}
+
+.content--account .form-footer-links {
+  margin-top: 14px;
 }
 
 /* ── Text field ── */

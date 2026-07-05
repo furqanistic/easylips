@@ -26,9 +26,9 @@ export function Features() {
   const cards: BentoCardProps[] = [
     {
       label: '01',
-      title: 'Live call translation',
-      description: 'Meet, Zoom, Teams, Webex. Participants hear you in their language — instantly.',
-      meta: 'WORKS WITH ANY WEBRTC APP',
+      title: 'Real-time meeting translation',
+      description: 'Use OneLingo as an AI voice translator for Zoom, Google Meet, Teams, Webex, and browser-based calls.',
+      meta: 'WORKS WITH POPULAR MEETING APPS',
       span: 'lg:col-span-2 lg:row-span-2',
       children: <AppChips />,
       background: isDesktop ? <Lightfall /> : undefined,
@@ -36,23 +36,23 @@ export function Features() {
     },
     {
       label: '02',
-      title: '70+ languages',
-      description: 'From Urdu to Japanese, with native-level accuracy.',
+      title: '70+ language voice translator',
+      description: 'Translate English, Urdu, Hindi, Spanish, Arabic, French, Japanese, Korean, and more than 2,000 language pairs.',
       meta: '2,000+ PAIRS',
       span: 'lg:col-span-2',
     },
     {
       label: '03',
-      title: '68ms latency',
-      description: 'Faster than human interpreters. Conversations stay natural.',
+      title: 'Low-latency live translation',
+      description: 'Keep sales calls, customer support, webinars, and online classes moving without awkward pauses.',
       meta: 'SUB-100MS · OPTIMAL',
       span: 'lg:col-span-1',
       children: <LatencyMeter />,
     },
     {
       label: '04',
-      title: 'Neural voice cloning',
-      description: 'Your translated voice sounds like you — same tone, same cadence.',
+      title: 'Natural translated voices',
+      description: 'Your translated voice keeps your tone, cadence, and intent so multilingual conversations still feel human.',
       meta: '10SEC SAMPLE',
       span: 'lg:col-span-1',
       children: <CloneWave />,
@@ -117,7 +117,7 @@ export function Features() {
               letterSpacing: '-0.01em',
             }}
           >
-            One engine. Every call, every language, every voice.
+            One AI voice translation engine for meetings, calls, webinars, support, education, and live streams.
           </p>
         </motion.div>
 
@@ -257,43 +257,5 @@ function CloneWave() {
         />
       ))}
     </div>
-  )
-}
-
-function CallIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14" stroke={RED_BRIGHT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <rect x="3" y="7" width="12" height="10" rx="2" stroke={RED_BRIGHT} strokeWidth="1.5" />
-    </svg>
-  )
-}
-
-function GlobeIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <circle cx="12" cy="12" r="9.5" stroke={RED_BRIGHT} strokeWidth="1.5" />
-      <ellipse cx="12" cy="12" rx="4" ry="9.5" stroke={RED_BRIGHT} strokeWidth="1.5" />
-      <path d="M2.5 12h19" stroke={RED_BRIGHT} strokeWidth="1.5" />
-      <path d="M5 7.5h14M5 16.5h14" stroke={RED_BRIGHT} strokeWidth="1.2" opacity="0.55" />
-    </svg>
-  )
-}
-
-function BoltIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke={RED_BRIGHT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="rgba(234,10,26,0.08)" />
-    </svg>
-  )
-}
-
-function CloneIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path d="M12 4c-1.66 0-3 1.37-3 3v5c0 1.66 1.34 3 3 3s3-1.34 3-3V7c0-1.63-1.34-3-3-3z" stroke={RED_BRIGHT} strokeWidth="1.5" />
-      <path d="M19 11v1c0 3.87-3.13 7-7 7s-7-3.13-7-7v-1" stroke={RED_BRIGHT} strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M12 19v3" stroke={RED_BRIGHT} strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
   )
 }

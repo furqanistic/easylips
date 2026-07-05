@@ -12,6 +12,7 @@ window.EasyLips = window.EasyLips || {};
     listenEnabled = true,
     onBack,
     onContinue,
+    onOpenPlayground,
     onInputChange,
     onOutputChange,
     onListenInputChange,
@@ -35,6 +36,16 @@ window.EasyLips = window.EasyLips || {};
       onListenEnabledChange,
     });
 
+    let footerNode = null;
+    if (onOpenPlayground) {
+      const playgroundButton = document.createElement("button");
+      playgroundButton.type = "button";
+      playgroundButton.className = "microphone-playground-btn";
+      playgroundButton.innerHTML = `${App.icons.microphone}<span>Test playground</span>`;
+      playgroundButton.addEventListener("click", () => onOpenPlayground());
+      footerNode = playgroundButton;
+    }
+
     const view = App.createSetupStepView({
       viewName: "microphone",
       contentClass: "content--microphone",
@@ -42,6 +53,7 @@ window.EasyLips = window.EasyLips || {};
       heading: "Choose your audio routes",
       subheading: "Send your translated voice to Meet, and hear client audio translated in your headphones.",
       body: panels,
+      footerNode,
       onBack,
       onContinue,
     });
@@ -164,10 +176,12 @@ window.EasyLips = window.EasyLips || {};
     });
 
     function updateOutputStatus(option) {
+      const footer = panels.outputFooter;
+      if (!footer) return;
+
       const needsVirtualDriver = option.virtual && option.installed === false;
       const tone = needsVirtualDriver ? "denied" : option.virtual ? "ready" : "idle";
       const label = needsVirtualDriver ? "Install cable" : option.virtual ? "Ready" : "Selected";
-      const footer = panels.outputFooter;
       footer.className = `device-picker-footer device-picker-footer--status device-picker-footer--${tone}`;
       footer.querySelector(".status-text").textContent = label;
     }
@@ -191,7 +205,7 @@ window.EasyLips = window.EasyLips || {};
     }
 
     async function refreshOutputDevices() {
-      const devices = await EasyLips.listOutputDevices();
+      const devices = await EasyLips.listVirtualOutputDevices();
       if (disposed) return;
 
       const selectedId = pickDefaultOutputId(devices);

@@ -18,22 +18,12 @@ export function Footer() {
         <div className="grid-6" style={{ marginBottom: '64px' }}>
           {/* Brand col */}
           <div className="col-span-2">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-              <span style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                width: '28px', height: '28px', borderRadius: '6px',
-                background: 'linear-gradient(135deg, rgb(86,194,255) 0%, rgb(19,138,242) 100%)',
-                boxShadow: 'rgba(86,194,255,0.25) 0px 0px 12px 2px',
-              }}>
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8.5C3 5.46 5.46 3 8.5 3S14 5.46 14 8.5 11.54 14 8.5 14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-                  <circle cx="8.5" cy="8.5" r="1.5" fill="white" />
-                  <path d="M2 12l2-2M2 12l2 2" stroke="#FF6363" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              </span>
-              <span style={{ color: '#ffffff', fontWeight: 600, fontSize: '14px', letterSpacing: '-0.02em' }}>
-                EasyLips
-              </span>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+              <img
+                src="/assets/logoicon.png"
+                alt="OneLingo"
+                style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
+              />
             </div>
             <p style={{ fontSize: '13px', lineHeight: 1.6, color: '#454647', maxWidth: '200px', marginBottom: '20px' }}>
               AI-powered real-time voice translation for everyone on Earth.
@@ -71,7 +61,7 @@ export function Footer() {
           paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.04)',
         }}>
           <span style={{ fontSize: '12px', color: '#363739' }}>
-            © 2026 EasyLips, Inc. All rights reserved.
+            © 2026 OneLingo, Inc. All rights reserved.
           </span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#363739', letterSpacing: '0.04em' }}>

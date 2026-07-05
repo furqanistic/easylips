@@ -14,7 +14,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const AUTH_EMAIL_KEY = 'easylips_mock_auth_email'
+const AUTH_EMAIL_KEY = 'onelingo_mock_auth_email'
 
 const navigation = [
   { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
@@ -27,7 +27,7 @@ const navigation = [
 export function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const navigate = useNavigate()
-  const email = window.localStorage.getItem(AUTH_EMAIL_KEY) || 'admin@redlips.ai'
+  const email = window.localStorage.getItem(AUTH_EMAIL_KEY) || 'admin@onelingo.app'
 
   function handleLogout() {
     window.localStorage.removeItem(AUTH_EMAIL_KEY)
@@ -53,11 +53,8 @@ export function DashboardLayout() {
           borderColor: 'rgba(255,255,255,0.06)',
         }}
       >
-        <div className="flex h-16 items-center gap-3 border-b px-6" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-          <span className="flex size-8 items-center justify-center rounded-lg text-sm font-bold" style={{ background: '#DC2626', color: '#010104' }}>
-            RL
-          </span>
-          <span className="text-base font-semibold text-white">RedLips</span>
+        <div className="flex h-16 items-center border-b px-6" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+          <img src="/assets/logoicon.png" alt="OneLingo" className="h-10 w-auto object-contain" />
           <button
             onClick={() => setSidebarOpen(false)}
             className="ml-auto rounded-lg p-1.5 text-gray-400 hover:bg-white/5 hover:text-white lg:hidden"

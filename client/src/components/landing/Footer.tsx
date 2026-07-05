@@ -1,10 +1,31 @@
 import { useState } from 'react'
 
 const links = {
-  Product: ['Features', 'How it works', 'Languages', 'Pricing', 'API docs', 'Changelog'],
-  Company: ['About', 'Blog', 'Careers', 'Press kit', 'Contact'],
-  Legal: ['Privacy policy', 'Terms of service', 'Cookie policy', 'GDPR'],
-  'Use Cases': ['Video calls', 'Webinars', 'Customer support', 'Education', 'Sales calls'],
+  Product: [
+    { label: 'AI voice translator', href: '#hero' },
+    { label: 'Features', href: '#capabilities' },
+    { label: 'How it works', href: '#how-it-works' },
+    { label: 'Languages', href: '#languages' },
+    { label: 'Pricing', href: '#pricing' },
+    { label: 'FAQ', href: '#faq' },
+  ],
+  Company: [
+    { label: 'About OneLingo', href: '#hero' },
+    { label: 'Customer stories', href: '#testimonials' },
+    { label: 'Contact sales', href: '#get-started' },
+  ],
+  Legal: [
+    { label: 'Privacy policy', href: '#get-started' },
+    { label: 'Terms of service', href: '#get-started' },
+    { label: 'GDPR', href: '#get-started' },
+  ],
+  'Use Cases': [
+    { label: 'Meeting translation', href: '#capabilities' },
+    { label: 'Webinar translation', href: '#faq' },
+    { label: 'Customer support translation', href: '#faq' },
+    { label: 'Online class translation', href: '#faq' },
+    { label: 'Sales call translation', href: '#faq' },
+  ],
 }
 
 export function Footer() {
@@ -21,21 +42,8 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-6" style={{ marginBottom: '64px' }}>
           {/* Brand col */}
           <div className="col-span-2">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-              <span
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '32px',
-                  height: '32px',
-                }}
-              >
-                <img src="/logo.png" alt="Easy Lips" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-              </span>
-              <span style={{ color: '#ffffff', fontWeight: 600, fontSize: '15px', letterSpacing: '-0.03em' }}>
-                Easy Lips
-              </span>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+              <img src="/assets/logoicon.png" alt="OneLingo" style={{ height: '40px', width: 'auto', objectFit: 'contain' }} />
             </div>
             <p style={{ fontSize: '13px', lineHeight: 1.6, color: '#454647', maxWidth: '200px', marginBottom: '20px' }}>
               Real-time AI voice translation for every conversation.
@@ -65,8 +73,8 @@ export function Footer() {
               </span>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {items.map((item) => (
-                  <li key={item}>
-                    <FooterLink label={item} />
+                  <li key={item.label}>
+                    <FooterLink label={item.label} href={item.href} />
                   </li>
                 ))}
               </ul>
@@ -83,7 +91,7 @@ export function Footer() {
           }}
         >
           <span style={{ fontSize: '12px', color: '#363739' }}>
-            © 2026 Easy Lips, Inc. All rights reserved.
+            © 2026 OneLingo, Inc. All rights reserved.
           </span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ fontFamily: 'monospace', fontSize: '11px', color: '#363739', letterSpacing: '0.04em' }}>
@@ -139,11 +147,11 @@ function SocialBtn({ label }: { label: string }) {
   )
 }
 
-function FooterLink({ label }: { label: string }) {
+function FooterLink({ label, href }: { label: string; href: string }) {
   const [hovered, setHovered] = useState(false)
   return (
     <a
-      href="#"
+      href={href}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{

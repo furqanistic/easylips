@@ -28,7 +28,7 @@ const useCases = [
   {
     id: 'education', tag: 'Education',
     title: 'Teach and learn across languages',
-    description: 'Deliver lectures, tutoring sessions, and online courses to students worldwide. EasyLips keeps educational nuance intact across translation.',
+    description: 'Deliver lectures, tutoring sessions, and online courses to students worldwide. OneLingo keeps educational nuance intact across translation.',
     items: ['Lecture translation in real-time', 'Student Q&A in any language', 'Course content dubbing', 'LMS platform integrations'],
     color: '#ff6363', gradient: 'rgba(255,99,99,0.06)', border: 'rgba(255,99,99,0.1)',
   },

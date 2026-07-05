@@ -11,24 +11,24 @@ const steps = [
     number: '01',
     title: 'Join your call',
     description:
-      'Start Google Meet, Zoom, or Teams as usual. EasyLips runs in the background — no extra apps, no setup.',
-    image: '/landing/how-step-join.png',
-    alt: 'Video meeting interface with EasyLips connected',
+      'Start Google Meet, Zoom, Microsoft Teams, or Webex as usual. OneLingo runs in the background for live meeting translation.',
+    image: '/landing/how1.avif',
+    alt: 'Video meeting interface with OneLingo connected',
   },
   {
     number: '02',
     title: 'Speak naturally',
     description:
-      'Talk in your language. Our engine detects it, captures your voice, and streams it through the AI pipeline.',
-    image: '/landing/how-step-speak.png',
+      'Talk in your language. The AI voice translator detects the source language, captures your tone, and prepares the translated speech.',
+    image: '/landing/how2.avif',
     alt: 'Active speaker with waveform and language detection',
   },
   {
     number: '03',
     title: 'They hear you',
     description:
-      'Your audience hears a natural-sounding translation — with your tone, your pace, your personality.',
-    image: '/landing/how-step-hear.png',
+      'Your audience hears a natural-sounding real-time translation with your tone, pace, and intent preserved.',
+    image: '/landing/how3.avif',
     alt: 'Live translation panel with translated speech output',
   },
 ]
@@ -74,7 +74,7 @@ export function HowItWorks() {
           >
             From your mic to
             <br />
-            <span style={{ color: RED_BRIGHT }}>their ears</span>.
+            <span style={{ color: RED_BRIGHT }}>live translation</span>.
           </h2>
         </motion.div>
 
@@ -169,7 +169,7 @@ function StepImage({ image, alt }: { image: string; alt: string }) {
         src={image}
         alt={alt}
         loading="lazy"
-        className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+        className="w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
         style={{ aspectRatio: '16/10' }}
       />
     </div>

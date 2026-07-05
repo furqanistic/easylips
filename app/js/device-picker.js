@@ -286,7 +286,6 @@ window.EasyLips = window.EasyLips || {};
     arrow.setAttribute("aria-hidden", "true");
     arrow.innerHTML = icons.arrowRight;
 
-    const outputFooter = App.createOutputStatusFooter();
     const outputPicker = App.createDevicePicker({
       id: "output-mic",
       icon: icons.translate,
@@ -296,14 +295,17 @@ window.EasyLips = window.EasyLips || {};
       options: outputDevices.map((device) => ({
         ...device,
       })),
-      footer: outputFooter,
       onChange: onOutputChange,
     });
+
+    const speakGrid = document.createElement("div");
+    speakGrid.className = "microphone-route-grid";
+    speakGrid.append(inputPicker, arrow, outputPicker);
 
     const speakPanel = document.createElement("section");
     speakPanel.className = "microphone-route-panel microphone-route-panel--active";
     speakPanel.dataset.route = "speak";
-    speakPanel.append(inputPicker, arrow, outputPicker);
+    speakPanel.appendChild(speakGrid);
 
     const listenInputFooter = App.createInputLevelFooter();
     const listenInputPicker = App.createDevicePicker({
@@ -350,10 +352,14 @@ window.EasyLips = window.EasyLips || {};
       </label>
     `;
 
+    const listenGrid = document.createElement("div");
+    listenGrid.className = "microphone-route-grid";
+    listenGrid.append(listenInputPicker, listenArrow, listenOutputPicker);
+
     const listenPanel = document.createElement("section");
     listenPanel.className = "microphone-route-panel";
     listenPanel.dataset.route = "listen";
-    listenPanel.append(listenHeader, listenInputPicker, listenArrow, listenOutputPicker);
+    listenPanel.append(listenHeader, listenGrid);
 
     const listenToggle = listenHeader.querySelector(".toggle-switch-input");
     listenToggle.addEventListener("change", () => {
@@ -381,7 +387,6 @@ window.EasyLips = window.EasyLips || {};
     root.listenOutputPicker = listenOutputPicker;
     root.listenToggle = listenToggle;
     root.inputFooter = inputFooter;
-    root.outputFooter = outputFooter;
     root.listenInputFooter = listenInputFooter;
     root.listenOutputFooter = listenOutputFooter;
 

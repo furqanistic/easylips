@@ -1,1 +1,26 @@
-{"name":"EasyLips","short_name":"EasyLips","icons":[{"src":"/favicon_io/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"/favicon_io/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],"theme_color":"#030306","background_color":"#030306","display":"standalone"}
+{
+  "name": "OneLingo - AI Voice Translator",
+  "short_name": "OneLingo",
+  "description": "Real-time AI voice translation for meetings, calls, webinars, support, sales, and online classes.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#030306",
+  "background_color": "#030306",
+  "icons": [
+    {
+      "src": "/favicon_io/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon_io/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["productivity", "business", "communication"]
+}

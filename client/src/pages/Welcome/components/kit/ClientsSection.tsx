@@ -24,7 +24,7 @@ export function ClientsSection() {
         >
           <SectionHeading>Our clients</SectionHeading>
           <SectionSubheading className="max-w-[433px] px-2">
-            Hear how teams use EasyLips to communicate effortlessly across languages.
+            Hear how teams use OneLingo to communicate effortlessly across languages.
           </SectionSubheading>
         </motion.div>
 
@@ -55,7 +55,7 @@ export function ClientsSection() {
                 className="mb-4 text-lg font-medium text-white"
                 style={{ lineHeight: '28px', letterSpacing: '-0.0023em' }}
               >
-                &ldquo;EasyLips made our global customer calls feel natural — everyone speaks in their own language and nothing gets lost in translation.&rdquo;
+                &ldquo;OneLingo made our global customer calls feel natural — everyone speaks in their own language and nothing gets lost in translation.&rdquo;
               </p>
               <p className="text-sm text-white" style={{ lineHeight: '24px' }}>
                 Talia Taylor
@@ -96,7 +96,7 @@ export function ClientsSection() {
                 className="mb-5 text-white"
                 style={{ fontSize: 23, lineHeight: '34px', letterSpacing: '-0.0023em', fontWeight: 500 }}
               >
-                &ldquo;EasyLips made our global customer calls feel natural — everyone speaks in their own language and nothing gets lost in translation.&rdquo;
+                &ldquo;OneLingo made our global customer calls feel natural — everyone speaks in their own language and nothing gets lost in translation.&rdquo;
               </p>
               <p className="text-base text-white" style={{ lineHeight: '26px' }}>
                 Talia Taylor

@@ -163,7 +163,7 @@ export function FeaturesBento() {
               index={3}
               inView={inView}
               title="Auto language detection"
-              description="Switch languages mid-conversation — EasyLips detects the source language instantly, no setup required."
+              description="Switch languages mid-conversation — OneLingo detects the source language instantly, no setup required."
               visual={ASSETS.keywordPyramid}
               visualStyle={{ left: 50, top: 10, width: 234, height: 234 }}
             />

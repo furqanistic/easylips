@@ -95,16 +95,16 @@ export function Hero() {
             textShadow: '0 2px 40px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.6)',
           }}
         >
-          Speak your language.
+          AI voice translator
           <br />
           <span
             style={{
               color: '#ff2d3f',
               textShadow:
-                '0 0 50px rgba(255,45,63,0.45), 0 0 18px rgba(255,45,63,0.35), 0 2px 30px rgba(0,0,0,0.5)',
+                '0 2px 30px rgba(0,0,0,0.5)',
             }}
           >
-            They hear theirs.
+            for meetings and calls.
           </span>
         </motion.h1>
 
@@ -122,8 +122,8 @@ export function Hero() {
             textShadow: '0 1px 18px rgba(0,0,0,0.6)',
           }}
         >
-          AI voice translation for meetings, calls, and live streams — delivered in
-          70+ languages with natural-sounding voices and imperceptible latency.
+          Translate live Zoom, Google Meet, Microsoft Teams, Webex, sales calls, webinars,
+          support conversations, and online classes in 70+ languages with natural-sounding voices.
         </motion.p>
 
         <motion.div

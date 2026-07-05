@@ -1,5 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
-const ACCESS_TOKEN_KEY = 'easylips_access_token'
+const ACCESS_TOKEN_KEY = 'onelingo_access_token'
 
 export type AuthUser = {
   id: string

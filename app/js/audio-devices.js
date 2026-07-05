@@ -258,6 +258,36 @@ EasyLips.listOutputDevices = async function listOutputDevices() {
   }
 };
 
+EasyLips.listVirtualOutputDevices = async function listVirtualOutputDevices() {
+  try {
+    let outputs = [];
+    let inputs = [];
+
+    if (navigator.mediaDevices?.enumerateDevices) {
+      let devices = await navigator.mediaDevices.enumerateDevices();
+      outputs = EasyLips.mapOutputDevices(devices);
+      inputs = EasyLips.mapInputDevices(devices);
+
+      if (!outputs.length || outputs.every((device) => device.label === "Output")) {
+        try {
+          await navigator.mediaDevices.getUserMedia({ audio: true });
+          devices = await navigator.mediaDevices.enumerateDevices();
+          outputs = EasyLips.mapOutputDevices(devices);
+          inputs = EasyLips.mapInputDevices(devices);
+        } catch {
+          outputs = [];
+          inputs = [];
+        }
+      }
+    }
+
+    const virtual = EasyLips.resolveEasyLipsVirtualOutput(outputs, inputs);
+    return virtual ? [virtual] : EasyLips.OUTPUT_DEVICES;
+  } catch {
+    return EasyLips.OUTPUT_DEVICES;
+  }
+};
+
 EasyLips.listSpeakerOutputDevices = async function listSpeakerOutputDevices() {
   try {
     const outputs = await EasyLips.listOutputDevices();

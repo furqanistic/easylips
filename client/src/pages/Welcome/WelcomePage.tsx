@@ -21,7 +21,7 @@ export function WelcomePage() {
 
       <section className="mx-auto mt-16 w-full max-w-5xl border-t border-white/10 pt-10">
         <p className="text-sm font-medium uppercase tracking-[0.22em] text-primary">
-          EasyLips
+          OneLingo
         </p>
         <h2 className="mt-4 max-w-2xl text-4xl font-semibold leading-tight text-white">
           Welcome to your translation workspace.

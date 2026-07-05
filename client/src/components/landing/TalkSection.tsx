@@ -51,7 +51,7 @@ export function TalkSection() {
           <p
             className="mt-3 max-w-[520px] text-[13px] leading-snug tracking-[-0.01em] text-white/48 sm:mt-4 sm:text-[14px] sm:leading-normal lg:mt-[18px] lg:text-[clamp(14px,1.4vw,16px)] lg:leading-[1.55]"
           >
-            Easy Lips translates your voice live for meetings, support, and conversations.
+            OneLingo translates your voice live for meetings, support, and conversations.
           </p>
 
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:mt-5 sm:gap-2.5 lg:mt-6">

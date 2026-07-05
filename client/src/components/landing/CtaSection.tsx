@@ -70,10 +70,10 @@ export function CtaSection() {
                 maxWidth: 640,
               }}
             >
-              Ready to remove the
+              Start real-time AI
               <br />
               <span className="relative inline-block">
-                language gap
+                voice translation
                 <span style={{ color: RED_BRIGHT }}>?</span>
                 <SparkleIcon className="absolute" style={{ top: -10, right: -20 } as CSSProperties} />
               </span>
@@ -93,7 +93,8 @@ export function CtaSection() {
               color: 'rgba(255, 255, 255, 0.5)',
             }}
           >
-            Launch meetings, support, and live streams without translation friction.
+            Join the waitlist for live meeting translation across Zoom, Google Meet, Teams, webinars,
+            sales calls, support, and online classes.
           </motion.p>
 
           <motion.div

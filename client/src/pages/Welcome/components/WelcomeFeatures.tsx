@@ -38,7 +38,7 @@ const features = [
   },
   {
     tag: 'Detection', title: 'Auto language detection',
-    description: 'Switch languages mid-conversation. EasyLips detects the source language instantly so you never have to configure anything.',
+    description: 'Switch languages mid-conversation. OneLingo detects the source language instantly so you never have to configure anything.',
     accent: 'rgba(89,212,153,0.08)', accentBorder: 'rgba(89,212,153,0.12)', accentColor: '#59d499',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">

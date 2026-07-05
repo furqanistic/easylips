@@ -1,12 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 const RED_BRIGHT = '#ff1f2e'
 
 const navLinks = [
-  { label: 'Product', href: '#capabilities' },
-  { label: 'How it works', href: '#capabilities' },
-  { label: 'Pricing', href: '#get-started' },
+  { label: 'Features', href: '#capabilities' },
+  { label: 'How it works', href: '#how-it-works' },
+  { label: 'Languages', href: '#languages' },
+  { label: 'Pricing', href: '#pricing' },
+]
+
+const toolsLinks = [
+  { label: 'Noise Remover', href: '/tools/noise-remover', description: 'Clean up background noise from recordings' },
 ]
 
 export function Navbar() {
@@ -36,16 +41,8 @@ export function Navbar() {
             WebkitBackdropFilter: 'blur(20px)',
           }}
         >
-          <a href="/" className="flex items-center gap-2.5 shrink-0 no-underline">
-            <span className="flex items-center justify-center" style={{ width: '34px', height: '34px' }}>
-              <img src="/logo.png" alt="Easy Lips" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-            </span>
-            <span
-              className="text-white font-semibold tracking-tight"
-              style={{ fontSize: '16px', letterSpacing: '-0.02em' }}
-            >
-              Easy Lips
-            </span>
+          <a href="/" className="flex items-center gap-2 shrink-0 no-underline">
+            <img src="/assets/logoicon.png" alt="OneLingo" className="h-10 w-auto object-contain" />
             <span
               className="hidden sm:flex items-center"
               style={{
@@ -76,6 +73,9 @@ export function Navbar() {
                 <NavLink href={link.href} label={link.label} />
               </li>
             ))}
+            <li>
+              <ToolsDropdown />
+            </li>
           </ul>
 
           <div className="hidden lg:flex items-center gap-2.5">
@@ -141,6 +141,36 @@ export function Navbar() {
             {link.label}
           </a>
         ))}
+        <div
+          style={{
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? 'translateY(0)' : 'translateY(24px)',
+            transition: 'all 0.5s cubic-bezier(0.32,0.72,0,1) 0.35s',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '12px',
+          }}
+        >
+          <span style={{ color: '#ffffff', fontSize: '24px', fontWeight: 500 }}>Tools</span>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+            {toolsLinks.map((tool) => (
+              <Link
+                key={tool.label}
+                to={tool.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  fontSize: '16px',
+                  fontWeight: 400,
+                  textDecoration: 'none',
+                }}
+              >
+                {tool.label}
+              </Link>
+            ))}
+          </div>
+        </div>
         <Link
           to="/auth"
           onClick={() => setMenuOpen(false)}
@@ -188,6 +218,111 @@ function NavLink({ href, label }: { href: string; label: string }) {
     >
       {label}
     </a>
+  )
+}
+
+function ToolsDropdown() {
+  const [open, setOpen] = useState(false)
+  const [labelHovered, setLabelHovered] = useState(false)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+
+  const handleClose = () => {
+    closeTimer.current = setTimeout(() => setOpen(false), 150)
+  }
+
+  const handleOpen = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    setOpen(true)
+  }
+
+  return (
+    <div
+      onMouseEnter={handleOpen}
+      onMouseLeave={handleClose}
+      style={{ position: 'relative', display: 'inline-flex' }}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="true"
+        aria-expanded={open}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '5px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          color: open || labelHovered ? '#ffffff' : 'rgba(255, 255, 255, 0.62)',
+          fontSize: '14px',
+          fontWeight: 500,
+          letterSpacing: '-0.01em',
+          transition: 'color 0.3s cubic-bezier(0.32,0.72,0,1)',
+        }}
+        onMouseEnter={() => setLabelHovered(true)}
+        onMouseLeave={() => setLabelHovered(false)}
+      >
+        Tools
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 12 12"
+          fill="none"
+          style={{
+            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.3s cubic-bezier(0.32,0.72,0,1)',
+          }}
+        >
+          <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {open && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 'calc(100% + 12px)',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            minWidth: '320px',
+            padding: '10px',
+            borderRadius: '16px',
+            background: 'rgba(3, 3, 8, 0.96)',
+            border: '1px solid rgba(234, 10, 26, 0.16)',
+            boxShadow: '0 12px 48px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255,255,255,0.05)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            zIndex: 60,
+          }}
+          onMouseEnter={handleOpen}
+          onMouseLeave={handleClose}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            {toolsLinks.map((tool) => (
+              <Link
+                key={tool.label}
+                to={tool.href}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '2px',
+                  padding: '10px 12px',
+                  borderRadius: '10px',
+                  textDecoration: 'none',
+                  color: '#ffffff',
+                  transition: 'background 0.2s ease',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(234, 10, 26, 0.10)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              >
+                <span style={{ fontSize: '13.5px', fontWeight: 600 }}>{tool.label}</span>
+                <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)' }}>{tool.description}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 

@@ -14,7 +14,7 @@ const plans = [
     description: 'For casual users.',
     minutes: '90',
     unit: 'min / month',
-    features: ['All 70+ languages', 'Web app', 'Standard AI voices'],
+    features: ['All 70+ languages'],
     cta: 'Get started',
     style: 'ghost' as const,
   },
@@ -25,7 +25,7 @@ const plans = [
     description: 'For freelancers, students, and small meetings.',
     minutes: '275',
     unit: 'min / month',
-    features: ['All 70+ languages', 'Desktop + web app', 'Neural voice cloning'],
+    features: ['All 70+ languages', 'Priority support'],
     cta: 'Go Plus',
     style: 'ghost' as const,
   },
@@ -37,7 +37,7 @@ const plans = [
     minutes: '750',
     unit: 'min / month',
     badge: 'Most popular',
-    features: ['All 70+ languages', 'Desktop + mobile apps', 'Priority support', 'API access'],
+    features: ['All 70+ languages', 'Priority support', 'API access'],
     cta: 'Start Pro',
     style: 'primary' as const,
   },
@@ -89,7 +89,7 @@ export function Pricing() {
               marginTop: 18,
             }}
           >
-            Simple pricing,
+            AI voice translator pricing,
             <br />
             <span style={{ color: RED }}>no surprises</span>.
           </h2>

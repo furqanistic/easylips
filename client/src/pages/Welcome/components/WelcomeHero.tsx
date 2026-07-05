@@ -189,7 +189,7 @@ export function WelcomeHero() {
           <div className="absolute inset-[11px] overflow-hidden rounded-lg border border-white/10">
             <img
               src={ASSETS.appWide}
-              alt="EasyLips voice translation app preview"
+              alt="OneLingo voice translation app preview"
               className="h-full w-full object-cover object-top"
             />
           </div>

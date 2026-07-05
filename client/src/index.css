@@ -366,3 +366,54 @@
     box-shadow: none;
   }
 }
+
+/* SEO article prose (Noise Remover blog) */
+.article-prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 2.25rem 0 0.85rem;
+  scroll-margin-top: 96px;
+}
+.article-prose h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 1.5rem 0 0.4rem;
+}
+.article-prose p {
+  margin: 0 0 1rem;
+}
+.article-prose ul,
+.article-prose ol {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+}
+.article-prose li {
+  margin: 0.4rem 0;
+  line-height: 1.7;
+}
+.article-prose ol li::marker {
+  color: #ff1f2e;
+  font-weight: 700;
+}
+.article-prose ul li::marker {
+  color: rgba(255, 255, 255, 0.4);
+}
+.article-prose a {
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 31, 46, 0.35);
+  transition: border-color 0.2s;
+}
+.article-prose a:hover {
+  border-bottom-color: #ff1f2e;
+}
+.article-prose strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+.article-prose summary::-webkit-details-marker {
+  display: none;
+}
+

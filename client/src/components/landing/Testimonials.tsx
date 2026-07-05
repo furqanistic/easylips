@@ -14,7 +14,7 @@ const testimonials = [
     avatar: 'SC',
   },
   {
-    quote: 'I host webinars in Japan, Brazil, and Germany simultaneously. My subscriber count tripled. EasyLips dissolved the language barrier.',
+    quote: 'I host webinars in Japan, Brazil, and Germany simultaneously. My subscriber count tripled. OneLingo dissolved the language barrier.',
     name: 'Marcus Osei',
     role: 'Content Creator',
     company: '2.1M subscribers',

@@ -28,6 +28,7 @@ window.EasyLips = window.EasyLips || {};
     heading,
     subheading,
     body = null,
+    footerNode = null,
     onBack,
     onContinue,
     continueLabel,
@@ -43,6 +44,10 @@ window.EasyLips = window.EasyLips || {};
 
     if (body) {
       content.appendChild(body);
+    }
+
+    if (footerNode) {
+      content.appendChild(footerNode);
     }
 
     content.appendChild(

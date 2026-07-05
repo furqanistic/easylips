@@ -1,6 +1,6 @@
 export const KIT_ASSETS = {
   caretDown: '/landing/caret-down.svg',
-  logo: '/landing/logo.svg',
+  logo: '/assets/logoicon.png',
   patternGrid: '/landing/pattern-grid.svg',
   dividerLine: '/landing/divider-line.png',
   check: '/landing/check.svg',
@@ -8,7 +8,7 @@ export const KIT_ASSETS = {
   avatar: '/landing/avatar.svg',
   gridLineV: '/landing/grid-line-v.svg',
   gridLineH: '/landing/grid-line-h.svg',
-  logokit: '/landing/logokit.svg',
+  logokit: '/assets/logoicon.png',
   avatarGlow: '/landing/avatar-glow.png',
   ctaPatternMask: '/landing/cta-pattern-mask.png',
   ctaGlow: '/landing/cta-glow.png',

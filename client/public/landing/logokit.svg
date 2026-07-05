@@ -2,7 +2,6 @@
   <rect width="28" height="28" x="0" y="5" rx="8" fill="url(#lkGrad)"/>
   <path d="M7 19C7 15.13 10.13 12 14 12s7 3.13 7 7-3.13 7-7 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
   <circle cx="14" cy="19" r="1.5" fill="white"/>
-  <text x="36" y="24" fill="white" font-size="14" font-weight="600" font-family="system-ui,sans-serif" letter-spacing="-0.02em">EasyLips</text>
   <defs>
     <linearGradient id="lkGrad" x1="0" y1="0" x2="28" y2="28">
       <stop stop-color="#9855ff"/>

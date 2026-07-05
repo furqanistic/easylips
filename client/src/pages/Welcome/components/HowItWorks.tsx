@@ -6,7 +6,7 @@ const ease = [0.32, 0.72, 0, 1] as const
 const steps = [
   {
     number: '01', title: 'Speak naturally', color: '#56c2ff',
-    description: 'Start talking in your language. EasyLips captures your voice in real-time with noise cancellation — no push-to-talk, no pauses required.',
+    description: 'Start talking in your language. OneLingo captures your voice in real-time with noise cancellation — no push-to-talk, no pauses required.',
     tags: ['Continuous voice stream', 'Noise suppression', 'Speaker detection'],
   },
   {

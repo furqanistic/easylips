@@ -1,4 +1,4 @@
-import { Navbar, Hero, Features, HowItWorks, Languages, Testimonials, Pricing, CtaSection, Footer } from '@/components/landing'
+import { Navbar, Hero, Features, HowItWorks, Languages, Testimonials, Pricing, Faq, CtaSection, Footer } from '@/components/landing'
 
 export function LandingPage() {
   return (
@@ -7,10 +7,11 @@ export function LandingPage() {
       <Navbar />
       <Hero />
       <HowItWorks />
+      <Pricing />
       <Languages />
       <Features />
       <Testimonials />
-      <Pricing />
+      <Faq />
       <CtaSection />
       <Footer />
     </main>

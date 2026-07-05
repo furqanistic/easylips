@@ -99,11 +99,8 @@ export function AuthForm({ mode }: AuthFormProps) {
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto grid min-h-screen w-full max-w-6xl grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px]">
         <section className="hidden min-h-screen flex-col justify-between border-r border-white/10 px-10 py-10 lg:flex xl:px-12">
-          <Link to="/" className="flex w-fit items-center gap-3 no-underline">
-            <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-sm font-black text-background">
-              EL
-            </span>
-            <span className="text-base font-semibold text-white">BetterLips</span>
+          <Link to="/" className="flex w-fit items-center no-underline">
+            <img src="/assets/logoicon.png" alt="OneLingo" className="h-11 w-auto object-contain" />
           </Link>
 
           <div className="max-w-xl">
@@ -114,7 +111,7 @@ export function AuthForm({ mode }: AuthFormProps) {
               Keep your voice ready across every language.
             </h1>
             <p className="mt-5 max-w-md text-base leading-7 text-muted-foreground">
-              Sign in to continue setting up your EasyLips workspace and manage your
+              Sign in to continue setting up your OneLingo workspace and manage your
               translation experience.
             </p>
           </div>
@@ -124,11 +121,8 @@ export function AuthForm({ mode }: AuthFormProps) {
 
         <main className="flex min-h-screen items-center justify-center px-5 py-8 sm:px-8 sm:py-10">
           <div className="w-full max-w-[420px]">
-            <Link to="/" className="mb-10 flex w-fit items-center gap-3 no-underline lg:hidden">
-              <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-sm font-black text-background">
-                EL
-              </span>
-              <span className="text-base font-semibold text-white">BetterLips</span>
+            <Link to="/" className="mb-10 flex w-fit items-center no-underline lg:hidden">
+              <img src="/assets/logoicon.png" alt="OneLingo" className="h-11 w-auto object-contain" />
             </Link>
 
             <div className="mb-8">
